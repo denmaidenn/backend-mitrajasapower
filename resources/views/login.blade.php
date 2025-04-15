@@ -10,7 +10,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
  </head>
  <body class="h-screen flex items-center justify-center bg-gray-100">
-  <div class="flex w-full max-w-4xl bg-white shadow-lg">
+  <div class="flex w-full h-full">
    <div class="w-1/2 relative">
     <img alt="A delivery person holding packages in an urban setting" class="w-full h-full object-cover" src="https://placehold.co/600x800"/>
     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -19,7 +19,7 @@
      </h1>
     </div>
    </div>
-   <div class="w-1/2 p-12 flex flex-col justify-center">
+   <div class="w-1/2 p-12 flex flex-col justify-center bg-white">
     <h2 class="text-3xl font-bold mb-4">
      Login
     </h2>
