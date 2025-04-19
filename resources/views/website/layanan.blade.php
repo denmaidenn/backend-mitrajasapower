@@ -8,147 +8,182 @@
   <script src="https://cdn.tailwindcss.com">
   </script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <script>
+   function toggleDropdown() {
+    const dropdown = document.getElementById('websiteDropdown');
+    dropdown.classList.toggle('hidden');
+   }
+  </script>
  </head>
- <body class="bg-gray-100">
-  <div class="flex">
+ <body class="bg-gray-50">
+  <div class="flex min-h-screen">
    <!-- Sidebar -->
-   <div class="w-1/5 bg-white h-screen shadow-lg">
-    <div class="p-4">
-     <img alt="Company Logo" class="mb-4" src="https://placehold.co/150x100"/>
-     <nav>
-      <ul>
-       <li class="mb-4">
-        <a class="flex items-center text-black" href="#">
-         <i class="fas fa-tachometer-alt mr-2">
-         </i>
-         Dashboard
-        </a>
-       </li>
-       <li class="mb-4">
-        <a class="flex items-center text-black" href="#">
-         <i class="fas fa-arrow-down mr-2">
-         </i>
-         Pemasukkan
-        </a>
-       </li>
-       <li class="mb-4">
-        <a class="flex items-center text-black" href="#">
-         <i class="fas fa-arrow-up mr-2">
-         </i>
-         Pengeluaran
-        </a>
-       </li>
-       <li class="mb-4">
-        <a class="flex items-center text-black" href="#">
-         <i class="fas fa-shipping-fast mr-2">
-         </i>
-         Pengiriman
-        </a>
-       </li>
-       <li class="mb-4">
-        <a class="flex items-center text-black" href="#">
-         <i class="fas fa-globe mr-2">
-         </i>
-         Website
-         <i class="fas fa-chevron-down ml-auto">
-         </i>
-        </a>
-       </li>
-      </ul>
-     </nav>
-    </div>
-    <div class="absolute bottom-0 p-4">
-     <a class="flex items-center text-black" href="#">
-      <i class="fas fa-sign-out-alt mr-2">
-      </i>
-      Log Out
-     </a>
+   <div class="bg-white w-64 h-screen fixed left-0 top-0 border-r border-gray-200">
+    <div class="h-full flex flex-col">
+     <!-- Top section with menu -->
+     <div class="p-6 flex-1 overflow-y-auto">
+      <div class="flex items-center mb-8">
+       <img alt="Company Logo" class="h-10 w-10 mr-3" src="https://placehold.co/50x50"/>
+       <div>
+        <h1 class="text-xl font-bold">
+         Menu
+        </h1>
+       </div>
+      </div>
+      <nav>
+       <ul class="space-y-4">
+        <li>
+         <a class="flex items-center text-gray-700 hover:text-black" href="#">
+          <i class="fas fa-tachometer-alt mr-3">
+          </i>
+          Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="flex items-center text-gray-700 hover:text-black" href="#">
+          <i class="fas fa-box-open mr-3">
+          </i>
+          Pemasukkan
+         </a>
+        </li>
+        <li>
+         <a class="flex items-center text-gray-700 hover:text-black" href="#">
+          <i class="fas fa-box mr-3">
+          </i>
+          Pengeluaran
+         </a>
+        </li>
+        <li>
+         <a class="flex items-center text-gray-700 hover:text-black" href="#">
+          <i class="fas fa-truck mr-3">
+          </i>
+          Pengiriman
+         </a>
+        </li>
+        <li>
+         <div class="relative">
+          <button onclick="toggleDropdown()" class="flex items-center w-full text-gray-700 hover:text-black">
+           <i class="fas fa-globe mr-3">
+           </i>
+           Website
+           <i class="fas fa-chevron-down ml-auto">
+           </i>
+          </button>
+          <div id="websiteDropdown" class="hidden mt-2 py-2 bg-white rounded-md shadow-lg">
+           <a href="{{ route('website.gallery') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Gallery</a>
+           <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100 bg-yellow-100">Layanan</a>
+           <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Testimonial</a>
+           <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Pusat Bantuan</a>
+          </div>
+         </div>
+        </li>
+       </ul>
+      </nav>
+     </div>
+     <!-- Bottom section with logout -->
+     <div class="p-6 border-t border-gray-200">
+      <a class="flex items-center text-gray-700 hover:text-black" href="#">
+       <i class="fas fa-sign-out-alt mr-3">
+       </i>
+       Log Out
+      </a>
+     </div>
     </div>
    </div>
    <!-- Main Content -->
-   <div class="w-4/5 p-8">
-    <div class="flex justify-between items-center mb-8">
-     <h1 class="text-3xl font-bold">
-      Layanan
-     </h1>
-     <div class="flex items-center">
-      <img alt="User Avatar" class="rounded-full mr-2" src="https://placehold.co/40x40"/>
-      <span>
-       Bilal Indrajaya
-      </span>
-     </div>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-     <div class="flex justify-between items-center mb-4">
-      <h2 class="text-2xl font-bold">
-       Detail Layanan
-      </h2>
-      <div>
-       <button class="bg-blue-500 text-white px-4 py-2 rounded mr-2">
-        Edit
-       </button>
-       <button class="bg-red-500 text-white px-4 py-2 rounded mr-2">
-        Hapus
-       </button>
-       <button class="bg-yellow-500 text-white px-4 py-2 rounded">
-        Tambah
-       </button>
+   <div class="ml-64 flex-1">
+    <div class="p-8">
+     <!-- Header with title and user info -->
+     <div class="flex justify-between items-center mb-8">
+      <h1 class="text-2xl font-bold">Layanan</h1>
+      <div class="flex items-center">
+       <img src="https://placehold.co/40x40" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
+       <span class="text-gray-700">Bilal Indrajaya</span>
       </div>
      </div>
-     <div class="overflow-x-auto">
-      <table class="min-w-full bg-white">
-       <thead>
-        <tr>
-         <th class="py-2 px-4 border-b">
-          Foto Cover
-         </th>
-         <th class="py-2 px-4 border-b">
-          Judul Layanan
-         </th>
-         <th class="py-2 px-4 border-b">
-          Deskripsi Layanan
-         </th>
-        </tr>
-       </thead>
-       <tbody>
-        <tr>
-         <td class="py-2 px-4 border-b">
-          <img alt="Service Image 1" class="rounded" src="https://placehold.co/50x50"/>
-         </td>
-         <td class="py-2 px-4 border-b">
-          Pengiriman Cargo Project
-         </td>
-         <td class="py-2 px-4 border-b">
-          Kami menyediakan layanan Pengiriman Cargo Project yang dirancang khusus untuk mendukung kebutuhan logistik proyek skala besar, termasuk proyek industri, konstruksi, manufaktur, dan pertambangan. Dengan armada yang lengkap serta sistem manajemen logistik yang efisien, kami memastikan setiap pengiriman tiba tepat waktu dan dalam kondisi aman.
-         </td>
-        </tr>
-        <tr>
-         <td class="py-2 px-4 border-b">
-          <img alt="Service Image 2" class="rounded" src="https://placehold.co/50x50"/>
-         </td>
-         <td class="py-2 px-4 border-b">
-          Logistik Proyek Konstruksi
-         </td>
-         <td class="py-2 px-4 border-b">
-          Layanan logistik yang dirancang khusus untuk mendukung proyek konstruksi besar, termasuk pengangkutan alat berat, material bangunan, dan komponen industri lainnya.
-         </td>
-        </tr>
-        <tr>
-         <td class="py-2 px-4 border-b">
-          <img alt="Service Image 3" class="rounded" src="https://placehold.co/50x50"/>
-         </td>
-         <td class="py-2 px-4 border-b">
-          Ekspedisi Cepat
-         </td>
-         <td class="py-2 px-4 border-b">
-          Kami menyediakan layanan ekspedisi cepat untuk pengiriman barang dalam kota maupun antar kota dengan jaminan kecepatan dan keamanan. Armada modern dan sistem pelacakan real-time memastikan barang tiba sesuai jadwal.
-         </td>
-        </tr>
-       </tbody>
-      </table>
+     <!-- Main Card -->
+     <div class="bg-white rounded-2xl p-6 shadow-sm">
+      <div class="flex justify-between items-center mb-6">
+       <h2 class="text-xl font-bold">Detail Layanan</h2>
+       <div class="flex space-x-2">
+        <button id="editBtn" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 font-medium">
+         Edit
+        </button>
+        <button id="deleteBtn" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 font-medium">
+         Hapus
+        </button>
+        <a href="{{ route('website.layanan.create') }}" class="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 font-medium">
+         Tambah
+        </a>
+       </div>
+      </div>
+      <div class="overflow-x-auto">
+       <table class="w-full">
+        <thead>
+         <tr class="border-b border-gray-100">
+          <th class="text-left py-4 px-6 w-16"></th>
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Foto Cover</th>
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Judul Layanan</th>
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Deskripsi layanan</th>
+         </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-50">
+         @foreach($services as $service)
+         <tr class="hover:bg-gray-50">
+          <td class="py-4 px-6">
+           <input type="checkbox" class="service-checkbox w-5 h-5 rounded-md border-gray-300 text-blue-600 focus:ring-blue-500" value="{{ $service->id }}">
+          </td>
+          <td class="py-4 px-6">
+           @if($service->image)
+               <img src="{{ asset('storage/'.$service->image) }}" alt="Service Image" class="w-16 h-16 object-cover rounded-lg">
+           @else
+               <img src="https://placehold.co/64x64" alt="No Image" class="w-16 h-16 object-cover rounded-lg">
+           @endif
+          </td>
+          <td class="py-4 px-6 text-gray-800 font-medium">{{ $service->title }}</td>
+          <td class="py-4 px-6 text-gray-600">{{ $service->description }}</td>
+         </tr>
+         @endforeach
+        </tbody>
+       </table>
+      </div>
      </div>
     </div>
    </div>
   </div>
+  <script>
+   // Handle Edit button click
+   document.getElementById('editBtn').addEventListener('click', function() {
+    const selectedCheckboxes = document.querySelectorAll('.service-checkbox:checked');
+    if (selectedCheckboxes.length === 1) {
+     const serviceId = selectedCheckboxes[0].value;
+     window.location.href = `/website/layanan/${serviceId}/edit`;
+    } else {
+     alert('Pilih satu layanan untuk diedit');
+    }
+   });
+   // Handle Delete button click
+   document.getElementById('deleteBtn').addEventListener('click', function() {
+    const selectedCheckboxes = document.querySelectorAll('.service-checkbox:checked');
+    if (selectedCheckboxes.length > 0) {
+     if (confirm('Apakah Anda yakin ingin menghapus layanan yang dipilih?')) {
+      selectedCheckboxes.forEach(checkbox => {
+       const serviceId = checkbox.value;
+       const form = document.createElement('form');
+       form.method = 'POST';
+       form.action = `/website/layanan/${serviceId}`;
+       form.innerHTML = `
+        @csrf
+        @method('DELETE')
+       `;
+       document.body.appendChild(form);
+       form.submit();
+      });
+     }
+    } else {
+     alert('Pilih layanan yang akan dihapus');
+    }
+   });
+  </script>
  </body>
 </html>
