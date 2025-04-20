@@ -22,11 +22,11 @@ use Illuminate\Support\Facades\Storage;
     <div class="h-full flex flex-col">
      <!-- Top section with menu -->
      <div class="p-6 flex-1 overflow-y-auto">
-      <div class="flex items-center mb-8">
-       <img alt="Company Logo" class="h-10 w-10 mr-3" src="https://placehold.co/50x50"/>
-       <div>
-        <h1 class="text-xl font-bold">Menu</h1>
-       </div>
+     <div class="flex flex-col items-center mb-6">
+      <img alt="PT Mitra Jasa Power Logo" class="h-25 w-25 mb-5" src="{{ asset('images/logo-mjp.png') }}">
+      <div class="w-full px-0">
+        <h1 class="text-xl text-left">Menu</h1>
+      </div>
       </div>
       <nav>
        <ul class="space-y-4">
