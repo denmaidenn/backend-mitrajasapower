@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Edit Gallery</title>
+    <title>Menambahkan Pusat Bantuan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 </head>
@@ -22,7 +22,7 @@
                     <nav>
                         <ul class="space-y-4">
                             <li>
-                                <a class="flex items-center text-gray-700 hover:text-black" href="#">
+                                <a class="flex items-center text-gray-700 hover:text-black" href="{{ route('dashboard') }}">
                                     <i class="fas fa-tachometer-alt mr-3"></i>
                                     Dashboard
                                 </a>
@@ -53,10 +53,10 @@
                                         <i class="fas fa-chevron-down ml-auto"></i>
                                     </button>
                                     <div id="websiteDropdown" class="hidden mt-2 py-2 bg-white rounded-md shadow-lg">
-                                        <a href="{{ route('website.gallery') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100 bg-yellow-100">Gallery</a>
+                                        <a href="{{ route('website.gallery') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Gallery</a>
                                         <a href="{{ route('website.layanan') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Layanan</a>
                                         <a href="{{ route('website.testimonial') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Testimonial</a>
-                                        <a href="{{ route('website.pusatbantuan') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Pusat Bantuan</a>
+                                        <a href="{{ route('website.pusatbantuan') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100 bg-yellow-100">Pusat Bantuan</a>
                                     </div>
                                 </div>
                             </li>
@@ -65,10 +65,13 @@
                 </div>
                 <!-- Bottom section with logout -->
                 <div class="p-6 border-t border-gray-200">
-                    <a class="flex items-center text-gray-700 hover:text-black" href="#">
-                        <i class="fas fa-sign-out-alt mr-3"></i>
-                        Log Out
-                    </a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="flex items-center text-gray-700 hover:text-black w-full">
+                            <i class="fas fa-sign-out-alt mr-3"></i>
+                            Log Out
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -78,34 +81,39 @@
             <div class="p-8">
                 <!-- Header with title and user info -->
                 <div class="flex justify-between items-center mb-8">
-                    <h1 class="text-2xl font-bold">Edit Gallery</h1>
+                    <h1 class="text-2xl font-bold">Menambahkan Pusat Bantuan</h1>
                     <div class="flex items-center">
                         <img src="https://placehold.co/40x40" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
-                        <span class="text-gray-700">Bilal Indrajaya</span>
+                        <span class="text-gray-700">{{ Auth::user()->name }}</span>
                     </div>
                 </div>
 
                 <!-- Main Card -->
                 <div class="bg-white rounded-2xl p-6 shadow-sm">
-                    <form action="{{ route('website.gallery.update', $gallery->id) }}" method="POST" enctype="multipart/form-data">
+                    <h2 class="text-xl font-bold mb-6">Form Pusat Bantuan</h2>
+                    <form action="{{ route('website.pusatbantuan.store') }}" method="POST">
                         @csrf
-                        @method('PUT')
                         <div class="space-y-6">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Judul Foto</label>
-                                <input type="text" name="title" value="{{ $gallery->title }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pertanyaan</label>
+                                <input type="text" name="pertanyaan" placeholder="Masukkan pertanyaan yang sering ditanyakan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Foto Cover</label>
-                                @if($gallery->image)
-                                    <img src="{{ asset('storage/'.$gallery->image) }}" alt="Current Image" class="w-32 h-32 object-cover rounded-lg mb-2">
-                                @endif
-                                <input type="file" name="image" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <p class="text-sm text-gray-500 mt-1">Biarkan kosong jika tidak ingin mengubah gambar</p>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Jawaban</label>
+                                <textarea name="jawaban" placeholder="Masukkan jawabannya" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Kategori</label>
+                                <div class="flex space-x-2">
+                                    <button type="button" onclick="selectCategory(this, 'FAQ')" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-yellow-100">FAQ</button>
+                                    <button type="button" onclick="selectCategory(this, 'Panduan')" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-yellow-100">Panduan</button>
+                                    <button type="button" onclick="selectCategory(this, 'Layanan & Kebijakan')" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-yellow-100">Layanan & Kebijakan</button>
+                                </div>
+                                <input type="hidden" name="kategori" id="kategori" required>
                             </div>
                             <div class="flex justify-end space-x-2">
-                                <a href="{{ route('website.gallery') }}" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Batal</a>
-                                <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Simpan</button>
+                                <a href="{{ route('website.pusatbantuan') }}" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Batal</a>
+                                <button type="submit" class="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">Tambah</button>
                             </div>
                         </div>
                     </form>
@@ -118,6 +126,19 @@
         function toggleDropdown() {
             const dropdown = document.getElementById('websiteDropdown');
             dropdown.classList.toggle('hidden');
+        }
+
+        function selectCategory(button, category) {
+            // Reset semua button
+            document.querySelectorAll('button[onclick^="selectCategory"]').forEach(btn => {
+                btn.classList.remove('bg-yellow-100');
+            });
+            
+            // Highlight button yang dipilih
+            button.classList.add('bg-yellow-100');
+            
+            // Set nilai kategori
+            document.getElementById('kategori').value = category;
         }
     </script>
 </body>

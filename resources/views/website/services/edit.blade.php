@@ -59,10 +59,10 @@
                                         <i class="fas fa-chevron-down ml-auto"></i>
                                     </button>
                                     <div id="websiteDropdown" class="hidden mt-2 py-2 bg-white rounded-md shadow-lg">
-                                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Gallery</a>
-                                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100 bg-yellow-100">Layanan</a>
-                                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Testimonial</a>
-                                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Pusat Bantuan</a>
+                                        <a href="{{ route('website.gallery') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Gallery</a>
+                                        <a href="{{ route('website.layanan') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100 bg-yellow-100">Layanan</a>
+                                        <a href="{{ route('website.testimonial') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Testimonial</a>
+                                        <a href="{{ route('website.pusatbantuan') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Pusat Bantuan</a>
                                     </div>
                                 </div>
                             </li>

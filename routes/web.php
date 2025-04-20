@@ -5,6 +5,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\PusatBantuanController;
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -59,9 +60,12 @@ Route::middleware('auth')->group(function () {
         Route::put('/testimonial/{testimonial}', [TestimonialController::class, 'update'])->name('testimonial.update');
         Route::delete('/testimonial/{testimonial}', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
 
-        // Route untuk halaman lain
-        Route::get('/pusatbantuan', function () {
-            return view('website.pusatbantuan');
-        })->name('pusatbantuan');
+        // Route untuk pusat bantuan
+        Route::get('/pusatbantuan', [PusatBantuanController::class, 'index'])->name('pusatbantuan');
+        Route::get('/pusatbantuan/create', [PusatBantuanController::class, 'create'])->name('pusatbantuan.create');
+        Route::post('/pusatbantuan', [PusatBantuanController::class, 'store'])->name('pusatbantuan.store');
+        Route::get('/pusatbantuan/{id}/edit', [PusatBantuanController::class, 'edit'])->name('pusatbantuan.edit');
+        Route::put('/pusatbantuan/{id}', [PusatBantuanController::class, 'update'])->name('pusatbantuan.update');
+        Route::delete('/pusatbantuan/{id}', [PusatBantuanController::class, 'destroy'])->name('pusatbantuan.destroy');
     });
 });

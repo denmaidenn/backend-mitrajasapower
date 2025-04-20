@@ -93,7 +93,7 @@ use Illuminate\Support\Facades\Storage;
       <h1 class="text-2xl font-bold">Gallery</h1>
       <div class="flex items-center">
        <img src="https://placehold.co/40x40" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
-       <span class="text-gray-700">Bilal Indrajaya</span>
+       <span class="text-gray-700">{{ Auth::user()->name }}</span>
       </div>
      </div>
 
@@ -128,19 +128,19 @@ use Illuminate\Support\Facades\Storage;
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-50">
-            @forelse($galleries as $gallery)
+            @forelse($galleries as $galleries)
             <tr class="hover:bg-gray-50">
               <td class="py-4 px-6">
-                <input type="checkbox" class="gallery-checkbox rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $gallery->id }}">
+                <input type="checkbox" class="gallery-checkbox rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $galleries->id }}">
               </td>
               <td class="py-4 px-6">
-                @if($gallery->image)
-                  <img src="{{ asset('storage/'.$gallery->image) }}" alt="{{ $gallery->title }}" class="w-24 h-24 rounded-lg object-cover">
+                @if($galleries->image)
+                  <img src="{{ asset('storage/'.$galleries->image) }}" alt="{{ $galleries->title }}" class="w-16 h-16 object-cover rounded-lg">
                 @else
-                  <img src="https://placehold.co/100x100" alt="No Image" class="w-24 h-24 rounded-lg object-cover">
+                  <img src="https://placehold.co/64x64" alt="No Image" class="w-16 h-16 object-cover rounded-lg">
                 @endif
               </td>
-              <td class="py-4 px-6 text-gray-800">{{ $gallery->title }}</td>
+              <td class="py-4 px-6 text-gray-800">{{ $galleries->title }}</td>
             </tr>
             @empty
             <tr>

@@ -28,13 +28,11 @@ class GalleryController extends Controller
 
         try {
             if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $imageName = time() . '_' . $image->getClientOriginalName();
-                $image->storeAs('public/galleries', $imageName);
+                $imagePath = $request->file('image')->store('galleries', 'public');
 
                 Gallery::create([
                     'title' => $request->title,
-                    'image' => 'galleries/' . $imageName
+                    'image' => $imagePath
                 ]);
 
                 return redirect()->route('website.gallery')->with('success', 'Gallery berhasil ditambahkan');
@@ -65,15 +63,12 @@ class GalleryController extends Controller
             if ($request->hasFile('image')) {
                 // Hapus gambar lama
                 if($gallery->image) {
-                    Storage::delete('public/' . $gallery->image);
+                    Storage::disk('public')->delete($gallery->image);
                 }
                 
                 // Upload gambar baru
-                $image = $request->file('image');
-                $imageName = time() . '_' . $image->getClientOriginalName();
-                $image->storeAs('public/galleries', $imageName);
-                
-                $gallery->image = 'galleries/' . $imageName;
+                $imagePath = $request->file('image')->store('galleries', 'public');
+                $gallery->image = $imagePath;
             }
 
             $gallery->title = $request->title;
@@ -91,7 +86,7 @@ class GalleryController extends Controller
             $gallery = Gallery::findOrFail($id);
             
             if($gallery->image) {
-                Storage::delete('public/' . $gallery->image);
+                Storage::disk('public')->delete($gallery->image);
             }
             
             $gallery->delete();

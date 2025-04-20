@@ -100,7 +100,7 @@
       <h1 class="text-2xl font-bold">Layanan</h1>
       <div class="flex items-center">
        <img src="https://placehold.co/40x40" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
-       <span class="text-gray-700">Bilal Indrajaya</span>
+       <span class="text-gray-700">{{ Auth::user()->name }}</span>
       </div>
      </div>
      <!-- Main Card -->

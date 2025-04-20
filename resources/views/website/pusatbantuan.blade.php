@@ -2,15 +2,13 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Detail Pusat Bantuan
-  </title>
+  <title>Pusat Bantuan</title>
   <script src="https://cdn.tailwindcss.com">
   </script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
  </head>
- <body class="bg-gray-100">
-  <div class="flex h-screen">
+ <body class="bg-gray-50">
+  <div class="flex min-h-screen">
    <!-- Sidebar -->
    <div class="bg-white w-64 h-screen fixed left-0 top-0 border-r border-gray-200">
     <div class="h-full flex flex-col">
@@ -79,106 +77,109 @@
     </div>
    </div>
    <!-- Main Content -->
-   <div class="flex-1 p-6">
-    <div class="flex justify-between items-center mb-6">
-     <h1 class="text-2xl font-bold">
-      Pusat Bantuan
-     </h1>
-     <div class="flex items-center">
-      <img alt="User Avatar" class="h-10 w-10 rounded-full mr-2" src="https://placehold.co/40x40"/>
-      <span>
-       Bilal Indrajaya
-      </span>
-     </div>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow">
-     <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-bold">
-       Detail Pusat Bantuan
-      </h2>
-      <div>
-       <button class="bg-blue-500 text-white px-4 py-2 rounded mr-2">
-        Edit
-       </button>
-       <button class="bg-red-500 text-white px-4 py-2 rounded mr-2">
-        Hapus
-       </button>
-       <button class="bg-yellow-500 text-white px-4 py-2 rounded">
-        Tambah
-       </button>
+   <div class="ml-64 flex-1">
+    <div class="p-8">
+     <!-- Header with title and user info -->
+     <div class="flex justify-between items-center mb-8">
+      <h1 class="text-2xl font-bold">Pusat Bantuan</h1>
+      <div class="flex items-center">
+       <img src="https://placehold.co/40x40" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
+       <span class="text-gray-700">{{ Auth::user()->name }}</span>
       </div>
      </div>
-     <table class="w-full text-left">
-      <thead>
-       <tr>
-        <th class="py-2">
-         Pertanyaan
-        </th>
-        <th class="py-2">
-         Jawaban
-        </th>
-        <th class="py-2">
-         Kategori
-        </th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr class="border-b">
-        <td class="py-2">
-         Bagaimana cara saya memesan jasa pengiriman ini?
-        </td>
-        <td class="py-2">
-         Klik tombol Order Now, lalu nanti akan diarahkan ke Whatsapp. Pemesanan hanya melalui Whatsapp.
-        </td>
-        <td class="py-2">
-         <button class="bg-yellow-200 px-4 py-1 rounded">
-          Panduan
-         </button>
-        </td>
-       </tr>
-       <tr class="border-b">
-        <td class="py-2">
-         Bagaimana cara melacak status pengiriman saya?
-        </td>
-        <td class="py-2">
-         Anda bisa melacak status pengiriman melalui halaman "Tracking" dengan memasukkan nomor resi.
-        </td>
-        <td class="py-2">
-         <button class="bg-yellow-200 px-4 py-1 rounded">
-          Panduan
-         </button>
-        </td>
-       </tr>
-       <tr class="border-b">
-        <td class="py-2">
-         Berapa lama estimasi pengiriman barang?
-        </td>
-        <td class="py-2">
-         Estimasi pengiriman tergantung pada tujuan dan jenis layanan. Umumnya, pengiriman dalam kota 1-2 hari, luar kota 3-5 hari.
-        </td>
-        <td class="py-2">
-         <button class="bg-yellow-200 px-4 py-1 rounded">
-          Panduan
-         </button>
-        </td>
-       </tr>
-       <tr>
-        <td class="py-2">
-         Apakah ada layanan asuransi untuk barang yang dikirim?
-        </td>
-        <td class="py-2">
-         Ya, kami menyediakan layanan asuransi tambahan untuk barang berharga. Silakan hubungi CS untuk informasi lebih lanjut.
-        </td>
-        <td class="py-2">
-         <button class="bg-yellow-200 px-4 py-1 rounded">
-          Panduan
-         </button>
-        </td>
-       </tr>
-      </tbody>
-     </table>
+     <!-- Main Card -->
+     <div class="bg-white rounded-2xl p-6 shadow-sm">
+      <div class="flex justify-between items-center mb-6">
+       <h2 class="text-xl font-bold">Detail Pusat Bantuan</h2>
+       <div class="flex space-x-2">
+        <button id="editBtn" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 font-medium">
+         Edit
+        </button>
+        <button id="deleteBtn" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 font-medium">
+         Hapus
+        </button>
+        <a href="{{ route('website.pusatbantuan.create') }}" class="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 font-medium">
+         Tambah
+        </a>
+       </div>
+      </div>
+      <div class="overflow-x-auto">
+       <table class="w-full">
+        <thead>
+         <tr class="border-b border-gray-100">
+          @if(isset($pusatBantuan) && $pusatBantuan->count() > 0)
+          <th class="text-left py-4 px-6 w-16">
+           <input type="checkbox" class="rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+          </th>
+          @endif
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Pertanyaan</th>
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Jawaban</th>
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Kategori</th>
+         </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-50">
+         @if(isset($pusatBantuan) && $pusatBantuan->count() > 0)
+          @foreach($pusatBantuan as $item)
+          <tr class="hover:bg-gray-50">
+           <td class="py-4 px-6">
+            <input type="checkbox" class="faq-checkbox rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $item->id }}">
+           </td>
+           <td class="py-4 px-6 text-gray-800">{{ $item->pertanyaan }}</td>
+           <td class="py-4 px-6 text-gray-600">{{ $item->jawaban }}</td>
+           <td class="py-4 px-6">
+            <span class="bg-yellow-100 text-gray-800 px-4 py-1 rounded-lg">{{ $item->kategori }}</span>
+           </td>
+          </tr>
+          @endforeach
+         @else
+          <tr>
+           <td colspan="4" class="py-4 px-6 text-center text-gray-500">Tidak ada data pusat bantuan</td>
+          </tr>
+         @endif
+        </tbody>
+       </table>
+      </div>
+     </div>
     </div>
    </div>
   </div>
+  <script>
+   function toggleDropdown() {
+    const dropdown = document.getElementById('websiteDropdown');
+    dropdown.classList.toggle('hidden');
+   }
+   // Handle Edit button click
+   document.getElementById('editBtn').addEventListener('click', function() {
+    const selectedCheckboxes = document.querySelectorAll('.faq-checkbox:checked');
+    if (selectedCheckboxes.length === 1) {
+     const faqId = selectedCheckboxes[0].value;
+     window.location.href = `/website/pusatbantuan/${faqId}/edit`;
+    } else {
+     alert('Pilih satu FAQ untuk diedit');
+    }
+   });
+   // Handle Delete button click
+   document.getElementById('deleteBtn').addEventListener('click', function() {
+    const selectedCheckboxes = document.querySelectorAll('.faq-checkbox:checked');
+    if (selectedCheckboxes.length > 0) {
+     if (confirm('Apakah Anda yakin ingin menghapus FAQ yang dipilih?')) {
+      selectedCheckboxes.forEach(checkbox => {
+       const faqId = checkbox.value;
+       const form = document.createElement('form');
+       form.method = 'POST';
+       form.action = `/website/pusatbantuan/${faqId}`;
+       form.innerHTML = `
+        @csrf
+        @method('DELETE')
+       `;
+       document.body.appendChild(form);
+       form.submit();
+      });
+     }
+    } else {
+     alert('Pilih FAQ yang akan dihapus');
+    }
+   });
+  </script>
  </body>
 </html>
