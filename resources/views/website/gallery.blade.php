@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Storage;
       <nav>
        <ul class="space-y-4">
         <li>
-         <a class="flex items-center text-gray-700 hover:text-black" href="#">
+         <a class="flex items-center text-gray-700 hover:text-black" href="{{ route('dashboard') }}">
           <i class="fas fa-tachometer-alt mr-3"></i>
           Dashboard
          </a>
@@ -64,8 +64,8 @@ use Illuminate\Support\Facades\Storage;
           <div id="websiteDropdown" class="hidden mt-2 py-2 bg-white rounded-md shadow-lg">
            <a href="{{ route('website.gallery') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100 bg-yellow-100">Gallery</a>
            <a href="{{ route('website.layanan') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Layanan</a>
-           <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Testimonial</a>
-           <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Pusat Bantuan</a>
+           <a href="{{ route('website.testimonial') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Testimonial</a>
+           <a href="{{ route('website.pusatbantuan') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Pusat Bantuan</a>
           </div>
          </div>
         </li>
@@ -74,10 +74,13 @@ use Illuminate\Support\Facades\Storage;
      </div>
      <!-- Bottom section with logout -->
      <div class="p-6 border-t border-gray-200">
-      <a class="flex items-center text-gray-700 hover:text-black" href="#">
-       <i class="fas fa-sign-out-alt mr-3"></i>
-       Log Out
-      </a>
+      <form action="{{ route('logout') }}" method="POST">
+       @csrf
+       <button type="submit" class="flex items-center text-gray-700 hover:text-black w-full">
+        <i class="fas fa-sign-out-alt mr-3"></i>
+        Log Out
+       </button>
+      </form>
      </div>
     </div>
    </div>
@@ -111,20 +114,41 @@ use Illuminate\Support\Facades\Storage;
        </div>
       </div>
 
-      <div class="grid grid-cols-1 gap-4">
-       @foreach($galleries as $gallery)
-       <div class="flex items-center bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors">
-        <input type="checkbox" class="gallery-checkbox w-5 h-5 rounded-md border-gray-300 text-blue-600 focus:ring-blue-500 mr-4" value="{{ $gallery->id }}">
-        <div class="flex items-center flex-1">
-         @if($gallery->image)
-          <img src="{{ asset('storage/'.$gallery->image) }}" alt="{{ $gallery->title }}" class="w-24 h-24 rounded-lg mr-4 object-cover">
-         @else
-          <img src="https://placehold.co/100x100" alt="No Image" class="w-24 h-24 rounded-lg mr-4 object-cover">
-         @endif
-         <span class="text-gray-800 flex-1">{{ $gallery->title }}</span>
-        </div>
-       </div>
-       @endforeach
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-gray-100">
+              @if($galleries->count() > 0)
+              <th class="text-left py-4 px-6 w-16">
+                <input type="checkbox" class="rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+              </th>
+              @endif
+              <th class="text-left py-4 px-6 text-gray-600 font-medium">Gambar</th>
+              <th class="text-left py-4 px-6 text-gray-600 font-medium">Judul</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-50">
+            @forelse($galleries as $gallery)
+            <tr class="hover:bg-gray-50">
+              <td class="py-4 px-6">
+                <input type="checkbox" class="gallery-checkbox rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $gallery->id }}">
+              </td>
+              <td class="py-4 px-6">
+                @if($gallery->image)
+                  <img src="{{ asset('storage/'.$gallery->image) }}" alt="{{ $gallery->title }}" class="w-24 h-24 rounded-lg object-cover">
+                @else
+                  <img src="https://placehold.co/100x100" alt="No Image" class="w-24 h-24 rounded-lg object-cover">
+                @endif
+              </td>
+              <td class="py-4 px-6 text-gray-800">{{ $gallery->title }}</td>
+            </tr>
+            @empty
+            <tr>
+              <td colspan="3" class="py-4 px-6 text-center text-gray-500">Tidak ada data gallery</td>
+            </tr>
+            @endforelse
+          </tbody>
+        </table>
       </div>
      </div>
     </div>

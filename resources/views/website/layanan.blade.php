@@ -33,7 +33,7 @@
       <nav>
        <ul class="space-y-4">
         <li>
-         <a class="flex items-center text-gray-700 hover:text-black" href="#">
+         <a class="flex items-center text-gray-700 hover:text-black" href="{{ route('dashboard') }}">
           <i class="fas fa-tachometer-alt mr-3">
           </i>
           Dashboard
@@ -71,9 +71,9 @@
           </button>
           <div id="websiteDropdown" class="hidden mt-2 py-2 bg-white rounded-md shadow-lg">
            <a href="{{ route('website.gallery') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Gallery</a>
-           <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100 bg-yellow-100">Layanan</a>
-           <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Testimonial</a>
-           <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Pusat Bantuan</a>
+           <a href="{{ route('website.layanan') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100 bg-yellow-100">Layanan</a>
+           <a href="{{ route('website.testimonial') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Testimonial</a>
+           <a href="{{ route('website.pusatbantuan') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Pusat Bantuan</a>
           </div>
          </div>
         </li>
@@ -82,11 +82,13 @@
      </div>
      <!-- Bottom section with logout -->
      <div class="p-6 border-t border-gray-200">
-      <a class="flex items-center text-gray-700 hover:text-black" href="#">
-       <i class="fas fa-sign-out-alt mr-3">
-       </i>
-       Log Out
-      </a>
+      <form action="{{ route('logout') }}" method="POST">
+       @csrf
+       <button type="submit" class="flex items-center text-gray-700 hover:text-black w-full">
+        <i class="fas fa-sign-out-alt mr-3"></i>
+        Log Out
+       </button>
+      </form>
      </div>
     </div>
    </div>
@@ -121,17 +123,21 @@
        <table class="w-full">
         <thead>
          <tr class="border-b border-gray-100">
-          <th class="text-left py-4 px-6 w-16"></th>
+          @if($services->count() > 0)
+          <th class="text-left py-4 px-6 w-16">
+            <input type="checkbox" class="rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+          </th>
+          @endif
           <th class="text-left py-4 px-6 text-gray-600 font-medium">Foto Cover</th>
           <th class="text-left py-4 px-6 text-gray-600 font-medium">Judul Layanan</th>
           <th class="text-left py-4 px-6 text-gray-600 font-medium">Deskripsi layanan</th>
          </tr>
         </thead>
         <tbody class="divide-y divide-gray-50">
-         @foreach($services as $service)
+         @forelse($services as $service)
          <tr class="hover:bg-gray-50">
           <td class="py-4 px-6">
-           <input type="checkbox" class="service-checkbox w-5 h-5 rounded-md border-gray-300 text-blue-600 focus:ring-blue-500" value="{{ $service->id }}">
+           <input type="checkbox" class="service-checkbox rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $service->id }}">
           </td>
           <td class="py-4 px-6">
            @if($service->image)
@@ -143,7 +149,11 @@
           <td class="py-4 px-6 text-gray-800 font-medium">{{ $service->title }}</td>
           <td class="py-4 px-6 text-gray-600">{{ $service->description }}</td>
          </tr>
-         @endforeach
+         @empty
+         <tr>
+           <td colspan="4" class="py-4 px-6 text-center text-gray-500">Tidak ada data layanan</td>
+         </tr>
+         @endforelse
         </tbody>
        </table>
       </div>
