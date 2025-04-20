@@ -6,6 +6,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\PusatBantuanController;
+use App\Http\Controllers\PengirimanController;
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -31,9 +32,12 @@ Route::middleware('auth')->group(function () {
         return view('pengeluaran.pengeluaran');
     });
 
-    Route::get('/pengiriman', function () {
-        return view('pengiriman.pengiriman');
-    });
+    Route::get('/pengiriman', [PengirimanController::class, 'index'])->name('pengiriman.index');
+    Route::get('/pengiriman/create', [PengirimanController::class, 'create'])->name('pengiriman.create');
+    Route::post('/pengiriman', [PengirimanController::class, 'store'])->name('pengiriman.store');
+    Route::get('/pengiriman/{pengiriman}/edit', [PengirimanController::class, 'edit'])->name('pengiriman.edit');
+    Route::put('/pengiriman/{pengiriman}', [PengirimanController::class, 'update'])->name('pengiriman.update');
+    Route::delete('/pengiriman/{pengiriman}', [PengirimanController::class, 'destroy'])->name('pengiriman.destroy');
 
     Route::prefix('website')->name('website.')->group(function () {
         // Route untuk layanan

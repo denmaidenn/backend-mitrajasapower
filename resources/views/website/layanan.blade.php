@@ -31,28 +31,28 @@
       <nav>
        <ul class="space-y-4">
         <li>
-         <a class="flex items-center text-gray-700 hover:text-black" href="{{ route('dashboard') }}">
+         <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="{{ route('dashboard') }}">
           <i class="fas fa-tachometer-alt mr-3">
           </i>
           Dashboard
          </a>
         </li>
         <li>
-         <a class="flex items-center text-gray-700 hover:text-black" href="#">
+         <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="#">
           <i class="fas fa-box-open mr-3">
           </i>
           Pemasukkan
          </a>
         </li>
         <li>
-         <a class="flex items-center text-gray-700 hover:text-black" href="#">
+         <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="#">
           <i class="fas fa-box mr-3">
           </i>
           Pengeluaran
          </a>
         </li>
         <li>
-         <a class="flex items-center text-gray-700 hover:text-black" href="#">
+         <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="{{ route('pengiriman.index') }}">
           <i class="fas fa-truck mr-3">
           </i>
           Pengiriman
@@ -60,7 +60,7 @@
         </li>
         <li>
          <div class="relative">
-          <button onclick="toggleDropdown()" class="flex items-center w-full text-gray-700 hover:text-black">
+          <button onclick="toggleDropdown()" class="flex items-center w-full text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100">
            <i class="fas fa-globe mr-3">
            </i>
            Website
