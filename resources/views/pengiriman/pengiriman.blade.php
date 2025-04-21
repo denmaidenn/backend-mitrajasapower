@@ -33,10 +33,10 @@
          </a>
         </li>
         <li>
-         <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="#">
+         <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="{{ route('pemasukan.index') }}">
           <i class="fas fa-box-open mr-3">
           </i>
-          Pemasukkan
+          Pemasukan
          </a>
         </li>
         <li>
@@ -55,12 +55,10 @@
         </li>
         <li>
          <div class="relative">
-          <button onclick="toggleDropdown()" class="flex items-center w-full text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100">
-           <i class="fas fa-globe mr-3">
-           </i>
-           Website
-           <i class="fas fa-chevron-down ml-auto">
-           </i>
+         <button onclick="toggleDropdown()" class="flex items-center w-full text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100">
+              <i class="fas fa-globe mr-3"></i>
+              Website
+              <i class="fas fa-chevron-down ml-auto"></i>
           </button>
           <div id="websiteDropdown" class="hidden mt-2 py-2 bg-white rounded-md shadow-lg">
            <a href="{{ route('website.gallery') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Gallery</a>
@@ -166,6 +164,11 @@
   </div>
 
   <script>
+   function toggleDropdown() {
+    const dropdown = document.getElementById('websiteDropdown');
+    dropdown.classList.toggle('hidden');
+   }
+
    // Handle Edit button click
    document.getElementById('editBtn').addEventListener('click', function() {
     const selectedCheckboxes = document.querySelectorAll('.pengiriman-checkbox:checked');

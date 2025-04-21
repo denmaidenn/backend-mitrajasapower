@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\PusatBantuanController;
 use App\Http\Controllers\PengirimanController;
+use App\Http\Controllers\PemasukanController;
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -38,6 +39,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengiriman/{pengiriman}/edit', [PengirimanController::class, 'edit'])->name('pengiriman.edit');
     Route::put('/pengiriman/{pengiriman}', [PengirimanController::class, 'update'])->name('pengiriman.update');
     Route::delete('/pengiriman/{pengiriman}', [PengirimanController::class, 'destroy'])->name('pengiriman.destroy');
+
+    // Route untuk pemasukan
+    Route::get('/pemasukan', [PemasukanController::class, 'index'])->name('pemasukan.index');
+    Route::get('/pemasukan/create', [PemasukanController::class, 'create'])->name('pemasukan.create');
+    Route::post('/pemasukan', [PemasukanController::class, 'store'])->name('pemasukan.store');
+    Route::get('/pemasukan/{pemasukan}/edit', [PemasukanController::class, 'edit'])->name('pemasukan.edit');
+    Route::put('/pemasukan/{pemasukan}', [PemasukanController::class, 'update'])->name('pemasukan.update');
+    Route::delete('/pemasukan/{pemasukan}', [PemasukanController::class, 'destroy'])->name('pemasukan.destroy');
 
     Route::prefix('website')->name('website.')->group(function () {
         // Route untuk layanan
