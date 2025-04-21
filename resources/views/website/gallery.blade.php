@@ -43,7 +43,7 @@ use Illuminate\Support\Facades\Storage;
          </a>
         </li>
         <li>
-         <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="#">
+         <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="{{ route('pengeluaran.index') }}">
           <i class="fas fa-box mr-3"></i>
           Pengeluaran
          </a>

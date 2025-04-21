@@ -8,6 +8,7 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\PusatBantuanController;
 use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\PemasukanController;
+use App\Http\Controllers\PengeluaranController;
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -29,9 +30,12 @@ Route::middleware('auth')->group(function () {
         return view('pemasukkan.pemasukkan');
     });
 
-    Route::get('/pengeluaran', function () {
-        return view('pengeluaran.pengeluaran');
-    });
+    Route::get('/pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran.index');
+    Route::get('/pengeluaran/create', [PengeluaranController::class, 'create'])->name('pengeluaran.create');
+    Route::post('/pengeluaran', [PengeluaranController::class, 'store'])->name('pengeluaran.store');
+    Route::get('/pengeluaran/{pengeluaran}/edit', [PengeluaranController::class, 'edit'])->name('pengeluaran.edit');
+    Route::put('/pengeluaran/{pengeluaran}', [PengeluaranController::class, 'update'])->name('pengeluaran.update');
+    Route::delete('/pengeluaran/{pengeluaran}', [PengeluaranController::class, 'destroy'])->name('pengeluaran.destroy');
 
     Route::get('/pengiriman', [PengirimanController::class, 'index'])->name('pengiriman.index');
     Route::get('/pengiriman/create', [PengirimanController::class, 'create'])->name('pengiriman.create');

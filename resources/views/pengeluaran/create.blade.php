@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Edit Pemasukan</title>
+    <title>Tambah Pengeluaran</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 </head>
@@ -28,13 +28,13 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg bg-yellow-100" href="{{ route('pemasukan.index') }}">
+                                <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="{{ route('pemasukan.index') }}">
                                     <i class="fas fa-box-open mr-3"></i>
                                     Pemasukan
                                 </a>
                             </li>
                             <li>
-                                <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="{{ route('pengeluaran.index') }}">
+                                <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg bg-yellow-100" href="{{ route('pengeluaran.index') }}">
                                     <i class="fas fa-box mr-3"></i>
                                     Pengeluaran
                                 </a>
@@ -81,7 +81,7 @@
             <div class="p-8">
                 <!-- Header with title and user info -->
                 <div class="flex justify-between items-center mb-8">
-                    <h1 class="text-2xl font-bold text-gray-800">Edit Pemasukan</h1>
+                    <h1 class="text-2xl font-bold text-gray-800">Tambah Pengeluaran</h1>
                     <div class="flex items-center gap-2">
                         <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-sm font-medium text-gray-600">
                             {{ substr(Auth::user()->name, 0, 2) }}
@@ -90,47 +90,58 @@
                     </div>
                 </div>
 
-                <!-- Main Card -->
-                <div class="bg-white rounded-xl p-8 shadow-sm">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-6">Form Pemasukan</h2>
-
-                    <form action="{{ route('pemasukan.update', $pemasukan->id) }}" method="POST" class="space-y-6">
+                <!-- Form Card -->
+                <div class="bg-white rounded-xl p-8 shadow-sm max-w-4xl mx-auto">
+                    <form action="{{ route('pengeluaran.store') }}" method="POST" class="space-y-6">
                         @csrf
-                        @method('PUT')
-                        <div class="space-y-5">
+                        <div class="grid grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Tanggal</label>
-                                <input type="date" name="tanggal" value="{{ $pemasukan->tanggal->format('Y-m-d') }}"
-                                       class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" for="tanggal">
+                                    Tanggal
+                                </label>
+                                <input type="date" name="tanggal" id="tanggal" required
+                                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                             </div>
-
                             <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Nominal Pemasukan</label>
-                                <input type="number" name="nominal_pemasukan" value="{{ $pemasukan->nominal_pemasukan }}"
-                                       class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" for="nominal_pengeluaran">
+                                    Nominal Pengeluaran
+                                </label>
+                                <input type="number" name="nominal_pengeluaran" id="nominal_pengeluaran" required
+                                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Masukkan nominal">
                             </div>
-
                             <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Detail Pemasukan</label>
-                                <input type="text" name="detail_pemasukan" value="{{ $pemasukan->detail_pemasukan }}"
-                                       class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" for="detail_pengeluaran">
+                                    Detail Pengeluaran
+                                </label>
+                                <input type="text" name="detail_pengeluaran" id="detail_pengeluaran" required
+                                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Masukkan detail">
                             </div>
-
                             <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Bank/Dompet</label>
-                                <input type="text" name="bank_dompet" value="{{ $pemasukan->bank_dompet }}"
-                                       class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" for="bank_dompet">
+                                    Bank/Dompet
+                                </label>
+                                <input type="text" name="bank_dompet" id="bank_dompet" required
+                                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Masukkan bank/dompet">
                             </div>
-
                             <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Rekening/Nomor</label>
-                                <input type="text" name="rekening_nomor" value="{{ $pemasukan->rekening_nomor }}"
-                                       class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
+                                <label class="block text-sm font-medium text-gray-700 mb-2" for="rekening_nomor">
+                                    Rekening/Nomor
+                                </label>
+                                <input type="text" name="rekening_nomor" id="rekening_nomor" required
+                                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Masukkan rekening/nomor">
                             </div>
                         </div>
-
-                        <div class="flex justify-end pt-4">
-                            <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 text-sm font-medium">
+                        <div class="flex justify-end space-x-2">
+                            <a href="{{ route('pengeluaran.index') }}" 
+                                class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                                Batal
+                            </a>
+                            <button type="submit" 
+                                class="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
                                 Simpan
                             </button>
                         </div>
