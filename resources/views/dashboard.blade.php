@@ -105,22 +105,6 @@
       </div>
      </div>
 
-     <!-- Filter Tahun -->
-     <div class="mb-6">
-      <form action="{{ route('dashboard') }}" method="GET" class="flex items-center space-x-4">
-       <select name="year" class="rounded-lg border-gray-300 focus:border-yellow-500 focus:ring focus:ring-yellow-200">
-        @foreach($years as $yearOption)
-            <option value="{{ $yearOption }}" {{ $year == $yearOption ? 'selected' : '' }}>
-                {{ $yearOption }}
-            </option>
-        @endforeach
-       </select>
-       <button type="submit" class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
-        Filter
-       </button>
-      </form>
-     </div>
-
      <!-- Stats Cards -->
      <div class="grid grid-cols-2 gap-6 mb-8">
       <!-- Total Income Card -->
@@ -210,11 +194,11 @@
           <td class="py-4">{{ $item->tipe_pengiriman }}</td>
           <td class="py-4">
            <span class="px-3 py-1 text-xs rounded-full 
-            @if($item->status == 'Approved') bg-yellow-100 text-yellow-600
-            @elseif($item->status == 'Pending') bg-blue-100 text-blue-600
-            @elseif($item->status == 'Complete') bg-green-100 text-green-600
-            @elseif($item->status == 'Rejected') bg-red-100 text-red-600
-            @else bg-purple-100 text-purple-600
+            @if($item->status == 'Approved') bg-yellow-100 text-yellow-600 py-2 rounded-lg inline-block text-sm
+            @elseif($item->status == 'Pending') bg-blue-100 text-blue-600 py-2 rounded-lg inline-block text-sm
+            @elseif($item->status == 'Complete') bg-green-100 text-green-600 py-2 rounded-lg inline-block text-sm
+            @elseif($item->status == 'Rejected') bg-red-100 text-red-600 py-2 rounded-lg inline-block text-sm
+            @else bg-purple-100 text-purple-600 py-2 rounded-lg inline-block text-sm
             @endif">
             {{ $item->status }}
            </span>
