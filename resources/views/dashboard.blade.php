@@ -111,11 +111,13 @@
       <div class="bg-white rounded-xl p-6 shadow-sm">
        <div class="flex justify-between items-start">
         <div>
-         <p class="text-sm text-gray-500 mb-1">Total Income</p>
+         <p class="text-sm text-gray-500 mb-1">Total Income {{ $year }}</p>
          <h3 class="text-2xl font-bold">Rp{{ number_format($totalPemasukan, 0, ',', '.') }}</h3>
+         <p class="text-xs text-gray-500 mt-1">Tahun {{ $year - 1 }}: Rp{{ number_format($totalPemasukanTahunSebelumnya, 0, ',', '.') }}</p>
         </div>
-        <div class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
-         +{{ number_format($pemasukanPercentage, 1) }}%
+        <div class="{{ $pemasukanPercentage >= 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }} text-xs px-2 py-1 rounded-full flex items-center">
+         <span>{{ $pemasukanPercentage >= 0 ? '+' : '' }}{{ number_format($pemasukanPercentage, 1) }}%</span>
+         
         </div>
        </div>
       </div>
@@ -124,11 +126,13 @@
       <div class="bg-white rounded-xl p-6 shadow-sm">
        <div class="flex justify-between items-start">
         <div>
-         <p class="text-sm text-gray-500 mb-1">Total Outcome</p>
+         <p class="text-sm text-gray-500 mb-1">Total Outcome {{ $year }}</p>
          <h3 class="text-2xl font-bold">Rp{{ number_format($totalPengeluaran, 0, ',', '.') }}</h3>
+         <p class="text-xs text-gray-500 mt-1">Tahun {{ $year - 1 }}: Rp{{ number_format($totalPengeluaranTahunSebelumnya, 0, ',', '.') }}</p>
         </div>
-        <div class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">
-         +{{ number_format($pengeluaranPercentage, 1) }}%
+        <div class="{{ $pengeluaranPercentage >= 0 ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' }} text-xs px-2 py-1 rounded-full flex items-center">
+         <span>{{ $pengeluaranPercentage >= 0 ? '+' : '' }}{{ number_format($pengeluaranPercentage, 1) }}%</span>
+         
         </div>
        </div>
       </div>

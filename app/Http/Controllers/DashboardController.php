@@ -21,6 +21,19 @@ class DashboardController extends Controller
         // Hitung total pengeluaran untuk tahun yang dipilih
         $totalPengeluaran = Pengeluaran::whereYear('tanggal', $year)->sum('nominal_pengeluaran');
 
+        // Hitung total untuk tahun sebelumnya
+        $totalPemasukanTahunSebelumnya = Pemasukan::whereYear('tanggal', $year - 1)->sum('nominal_pemasukan');
+        $totalPengeluaranTahunSebelumnya = Pengeluaran::whereYear('tanggal', $year - 1)->sum('nominal_pengeluaran');
+
+        // Hitung persentase perubahan year-over-year
+        $pemasukanPercentage = $totalPemasukanTahunSebelumnya > 0 
+            ? (($totalPemasukan - $totalPemasukanTahunSebelumnya) / $totalPemasukanTahunSebelumnya) * 100 
+            : 0;
+            
+        $pengeluaranPercentage = $totalPengeluaranTahunSebelumnya > 0 
+            ? (($totalPengeluaran - $totalPengeluaranTahunSebelumnya) / $totalPengeluaranTahunSebelumnya) * 100 
+            : 0;
+
         // Ambil data pengiriman terbaru (5 teratas)
         $pengiriman = Pengiriman::latest()->take(5)->get();
 
@@ -48,31 +61,6 @@ class DashboardController extends Controller
             ];
         }
 
-        // Hitung persentase perubahan
-        $lastMonthPemasukan = Pemasukan::whereMonth('tanggal', Carbon::now()->subMonth()->month)
-            ->whereYear('tanggal', $year)
-            ->sum('nominal_pemasukan');
-        
-        $lastMonthPengeluaran = Pengeluaran::whereMonth('tanggal', Carbon::now()->subMonth()->month)
-            ->whereYear('tanggal', $year)
-            ->sum('nominal_pengeluaran');
-            
-        $currentMonthPemasukan = Pemasukan::whereMonth('tanggal', Carbon::now()->month)
-            ->whereYear('tanggal', $year)
-            ->sum('nominal_pemasukan');
-            
-        $currentMonthPengeluaran = Pengeluaran::whereMonth('tanggal', Carbon::now()->month)
-            ->whereYear('tanggal', $year)
-            ->sum('nominal_pengeluaran');
-
-        $pemasukanPercentage = $lastMonthPemasukan > 0 
-            ? (($currentMonthPemasukan - $lastMonthPemasukan) / $lastMonthPemasukan) * 100 
-            : 0;
-            
-        $pengeluaranPercentage = $lastMonthPengeluaran > 0 
-            ? (($currentMonthPengeluaran - $lastMonthPengeluaran) / $lastMonthPengeluaran) * 100 
-            : 0;
-
         // Generate range tahun (5 tahun ke belakang dan 5 tahun ke depan dari tahun sekarang)
         $currentYear = Carbon::now()->year;
         $years = range($currentYear - 5, $currentYear + 5);
@@ -85,7 +73,9 @@ class DashboardController extends Controller
             'pengeluaranPercentage',
             'years',
             'year',
-            'pengiriman'
+            'pengiriman',
+            'totalPemasukanTahunSebelumnya',
+            'totalPengeluaranTahunSebelumnya'
         ));
     }
 } 
