@@ -9,6 +9,7 @@ use App\Http\Controllers\PusatBantuanController;
 use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
+use App\Http\Controllers\DashboardController;
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -22,9 +23,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/pemasukkan', function () {
         return view('pemasukkan.pemasukkan');
