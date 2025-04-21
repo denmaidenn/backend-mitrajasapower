@@ -1,3 +1,6 @@
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
 <html lang="en">
  <head>
   <meta charset="utf-8"/>
@@ -139,7 +142,7 @@
           </td>
           <td class="py-4 px-6">
            @if($service->image)
-               <img src="{{ asset('storage/'.$service->image) }}" alt="Service Image" class="w-16 h-16 object-cover rounded-lg">
+               <img src="{{ asset('storage/'.$service->image) }}" alt="{{ $service->title }}" class="w-16 h-16 object-cover rounded-lg">
            @else
                <img src="https://placehold.co/64x64" alt="No Image" class="w-16 h-16 object-cover rounded-lg">
            @endif
