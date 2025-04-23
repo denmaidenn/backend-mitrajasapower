@@ -19,7 +19,7 @@ class ServiceControllerAPI extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120'
         ]);
 
         $imagePath = $request->file('image')->store('services', 'public');
@@ -54,7 +54,7 @@ class ServiceControllerAPI extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120'
         ]);
 
         if ($request->hasFile('image')) {
