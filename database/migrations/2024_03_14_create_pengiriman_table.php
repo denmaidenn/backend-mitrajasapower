@@ -13,6 +13,8 @@ return new class extends Migration
             $table->string('nomor_resi')->unique();
             $table->string('dari');
             $table->string('ke');
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
             $table->string('jenis_barang');
             $table->string('tipe_pengiriman');
             $table->enum('status', ['Approved', 'Pending', 'Complete', 'Rejected', 'In Progress']);
