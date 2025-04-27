@@ -11,178 +11,194 @@
 </head>
 
 <body class="bg-gray-100">
-    <div class="flex h-screen">
-        <!-- Sidebar -->
-        @include('sidebar')
-        <!-- Main Content -->
-        <div class="flex-1 p-6">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold">
-                    Pengiriman
-                </h2>
-                <div class="flex items-center">
-                    <img alt="User Avatar" class="h-10 w-10 rounded-full mr-3" src="https://placehold.co/40x40" />
-                    <span>
-                        Bilal Indrajaya
-                    </span>
-                </div>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold">
-                        Detail Pengiriman
-                    </h3>
-                    <div class="space-x-2">
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded">
-                            Edit
-                        </button>
-                        <button class="bg-red-500 text-white px-4 py-2 rounded">
-                            Hapus
-                        </button>
-                        <button class="bg-yellow-500 text-white px-4 py-2 rounded">
-                            Tambah
-                        </button>
-                    </div>
-                </div>
-                <table class="w-full text-left">
-                    <thead>
-                        <tr>
-                            <th class="py-2">
-                                Nomor Resi
-                            </th>
-                            <th class="py-2">
-                                Dari
-                            </th>
-                            <th class="py-2">
-                                Ke
-                            </th>
-                            <th class="py-2">
-                                Jenis Barang
-                            </th>
-                            <th class="py-2">
-                                Tipe Pengiriman
-                            </th>
-                            <th class="py-2">
-                                Status
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-t">
-                            <td class="py-2">
-                                MJP1234567890
-                            </td>
-                            <td class="py-2">
-                                Bandung
-                            </td>
-                            <td class="py-2">
-                                Surabaya
-                            </td>
-                            <td class="py-2">
-                                Mobil
-                            </td>
-                            <td class="py-2">
-                                Kendaraan
-                            </td>
-                            <td class="py-2">
-                                <span class="bg-green-100 text-green-700 px-2 py-1 rounded">
-                                    Approved
-                                </span>
-                            </td>
-                        </tr>
-                        <tr class="border-t">
-                            <td class="py-2">
-                                MJP876543210
-                            </td>
-                            <td class="py-2">
-                                Depok
-                            </td>
-                            <td class="py-2">
-                                Semarang
-                            </td>
-                            <td class="py-2">
-                                Motor
-                            </td>
-                            <td class="py-2">
-                                Kendaraan
-                            </td>
-                            <td class="py-2">
-                                <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded">
-                                    Pending
-                                </span>
-                            </td>
-                        </tr>
-                        <tr class="border-t">
-                            <td class="py-2">
-                                MJP765432109
-                            </td>
-                            <td class="py-2">
-                                Bekasi
-                            </td>
-                            <td class="py-2">
-                                Yogyakarta
-                            </td>
-                            <td class="py-2">
-                                Mobil
-                            </td>
-                            <td class="py-2">
-                                Kendaraan
-                            </td>
-                            <td class="py-2">
-                                <span class="bg-green-100 text-green-700 px-2 py-1 rounded">
-                                    Complete
-                                </span>
-                            </td>
-                        </tr>
-                        <tr class="border-t">
-                            <td class="py-2">
-                                MJP654321098
-                            </td>
-                            <td class="py-2">
-                                Tangerang
-                            </td>
-                            <td class="py-2">
-                                Malang
-                            </td>
-                            <td class="py-2">
-                                Motor
-                            </td>
-                            <td class="py-2">
-                                Kendaraan
-                            </td>
-                            <td class="py-2">
-                                <span class="bg-red-100 text-red-700 px-2 py-1 rounded">
-                                    Rejected
-                                </span>
-                            </td>
-                        </tr>
-                        <tr class="border-t">
-                            <td class="py-2">
-                                MJP543210987
-                            </td>
-                            <td class="py-2">
-                                Jakarta
-                            </td>
-                            <td class="py-2">
-                                Medan
-                            </td>
-                            <td class="py-2">
-                                Mobil
-                            </td>
-                            <td class="py-2">
-                                Kendaraan
-                            </td>
-                            <td class="py-2">
-                                <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded">
-                                    In Progress
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+<div class="flex h-screen">
+<div class="bg-white w-64 h-screen fixed left-0 top-0 border-r border-gray-200">
+     <div class="h-full flex flex-col">
+      <!-- Top section with menu -->
+      <div class="p-6 flex-1 overflow-y-auto">
+      <div class="flex flex-col items-center mb-6">
+       <img alt="PT Mitra Jasa Power Logo" class="h-25 w-25 mb-5" src="{{ asset('images/logo-mjp.png') }}">
+       <div class="w-full px-0">
+         <h1 class="text-xl text-left">Menu</h1>
+       </div>
+       </div>
+       <nav>
+        <ul class="space-y-2">
+         <li>
+         <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="{{ route('dashboard') }}">
+           <i class="fas fa-tachometer-alt mr-3">
+           </i>
+           Dashboard
+          </a>
+         </li>
+         <li>
+          <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="#">
+           <i class="fas fa-box-open mr-3">
+           </i>
+           Pemasukkan
+          </a>
+         </li>
+         <li>
+          <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="#">
+           <i class="fas fa-box mr-3">
+           </i>
+           Pengeluaran
+          </a>
+         </li>
+         <li>
+          <a class="flex items-center text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100" href="{{ route('pengiriman.index') }}">
+           <i class="fas fa-truck mr-3">
+           </i>
+           Pengiriman
+          </a>
+         </li>
+         <li>
+          <div class="relative">
+           <button onclick="toggleDropdown()" class="flex items-center w-full text-gray-700 hover:text-black px-4 py-3 rounded-lg hover:bg-yellow-100">
+            <i class="fas fa-globe mr-3">
+            </i>
+            Website
+            <i class="fas fa-chevron-down ml-auto">
+            </i>
+           </button>
+           <div id="websiteDropdown" class="hidden mt-2 py-2 bg-white rounded-md shadow-lg">
+            <a href="{{ route('website.gallery') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Gallery</a>
+            <a href="{{ route('website.layanan') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Layanan</a>
+            <a href="{{ route('website.testimonial') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Testimonial</a>
+            <a href="{{ route('website.pusatbantuan') }}" class="block px-4 py-2 text-gray-700 hover:bg-yellow-100">Pusat Bantuan</a>
+           </div>
+          </div>
+         </li>
+        </ul>
+       </nav>
+      </div>
+      <!-- Bottom section with logout -->
+      <div class="p-6 border-t border-gray-200">
+       <form action="{{ route('logout') }}" method="POST" class="w-full">
+        @csrf
+        <button type="submit" class="flex items-center text-gray-700 hover:text-black w-full">
+         <i class="fas fa-sign-out-alt mr-3"></i>
+         Log Out
+        </button>
+       </form>
+      </div>
+     </div>
+   </div>
+   <!-- Main Content -->
+   <div class="ml-64 flex-1">
+    <div class="p-8">
+     <!-- Header with title and user info -->
+     <div class="flex justify-between items-center mb-8">
+      <h1 class="text-2xl font-bold">Pengiriman</h1>
+      <div class="flex items-center">
+       <img src="https://placehold.co/40x40" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
+       <span class="text-gray-700">{{ Auth::user()->name }}</span>
+      </div>
+     </div>
+      <!-- Main Card -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm">
+      <div class="flex justify-between items-center mb-6">
+       <h2 class="text-xl font-bold">Detail Pengiriman</h2>
+       <div class="flex space-x-2">
+        <button id="editBtn" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 font-medium">
+         Edit
+        </button>
+        <button id="deleteBtn" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 font-medium">
+         Hapus
+        </button>
+        <a href="{{ route('pengiriman.create') }}" class="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 font-medium">
+         Tambah
+        </a>
+       </div>
+      </div>
+      <div class="overflow-x-auto">
+       <table class="w-full">
+        <thead>
+         <tr class="border-b border-gray-100">
+          @if($pengiriman->count() > 0)
+          <th class="text-left py-4 px-6 w-16">
+           <input type="checkbox" class="rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+          </th>
+          @endif
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Nomor Resi</th>
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Dari</th>
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Ke</th>
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Jenis Barang</th>
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Tipe Pengiriman</th>
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Status</th>
+         </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-50">
+         @forelse($pengiriman as $item)
+         <tr class="hover:bg-gray-50">
+          <td class="py-4 px-6">
+           <input type="checkbox" class="pengiriman-checkbox rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $item->id }}">
+          </td>
+          <td class="py-4 px-6 text-gray-800">{{ $item->nomor_resi }}</td>
+          <td class="py-4 px-6 text-gray-800">{{ $item->dari }}</td>
+          <td class="py-4 px-6 text-gray-800">{{ $item->ke }}</td>
+          <td class="py-4 px-6 text-gray-800">{{ $item->jenis_barang }}</td>
+          <td class="py-4 px-6 text-gray-800">{{ $item->tipe_pengiriman }}</td>
+          <td class="py-4 px-6">
+           <span class="px-3 py-1 rounded-full text-sm
+            @if($item->status == 'Approved') bg-green-100 text-green-800 px-3 py-2 rounded-lg inline-block text-sm
+            @elseif($item->status == 'Pending') bg-yellow-100 text-yellow-800 px-3 py-2 rounded-lg inline-block text-sm
+            @elseif($item->status == 'Complete') bg-green-100 text-green-800 px-3 py-2 rounded-lg inline-block text-sm
+            @elseif($item->status == 'Rejected') bg-red-100 text-red-800 px-3 py-2 rounded-lg inline-block text-sm
+            @else bg-purple-100 text-purple-800 px-3 py-2 rounded-lg inline-block text-sm
+            @endif">
+            {{ $item->status }}
+           </span>
+          </td>
+         </tr>
+         @empty
+         <tr>
+          <td colspan="7" class="py-4 px-6 text-center text-gray-500">Tidak ada data pengiriman</td>
+         </tr>
+         @endforelse
+        </tbody>
+       </table>
+      </div>
+     </div>
+     </div>
+   </div>
+  </div>
+
+  <script>
+   // Handle Edit button click
+   document.getElementById('editBtn').addEventListener('click', function() {
+    const selectedCheckboxes = document.querySelectorAll('.pengiriman-checkbox:checked');
+    if (selectedCheckboxes.length === 1) {
+     const pengirimanId = selectedCheckboxes[0].value;
+     window.location.href = `/pengiriman/${pengirimanId}/edit`;
+    } else {
+     alert('Pilih satu pengiriman untuk diedit');
+    }
+   });
+
+   // Handle Delete button click
+   document.getElementById('deleteBtn').addEventListener('click', function() {
+    const selectedCheckboxes = document.querySelectorAll('.pengiriman-checkbox:checked');
+    if (selectedCheckboxes.length > 0) {
+     if (confirm('Apakah Anda yakin ingin menghapus pengiriman yang dipilih?')) {
+      selectedCheckboxes.forEach(checkbox => {
+       const pengirimanId = checkbox.value;
+       const form = document.createElement('form');
+       form.method = 'POST';
+       form.action = `/pengiriman/${pengirimanId}`;
+       form.innerHTML = `
+        @csrf
+        @method('DELETE')
+       `;
+       document.body.appendChild(form);
+       form.submit();
+      });
+     }
+    } else {
+     alert('Pilih pengiriman yang akan dihapus');
+    }
+   });
+  </script>
 </body>
 
 </html>
