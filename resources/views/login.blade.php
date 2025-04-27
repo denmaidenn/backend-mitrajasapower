@@ -15,7 +15,7 @@
  <body class="h-screen flex items-center justify-center bg-gray-100">
   <div class="flex w-full h-full">
    <div class="w-1/2 relative">
-    <img alt="A delivery person holding packages" class="w-full h-full object-cover" src="{{ asset('storage/auth/delivery-person.jpg') }}"/>
+    <img alt="A delivery person holding packages" class="w-full h-full object-cover" src="{{ asset('images/login.png') }}"/>
     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
      <h1 class="text-white text-4xl font-bold">
       Selamat Datang Kembali!
@@ -61,10 +61,10 @@
              placeholder="Masukkan email atau nama"/>
      </div>
      <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700" for="password">
+      <label class="block text-sm font-medium text-gray-700" for="password" >
        Password
       </label>
-      <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm" id="password" name="password" type="password" required/>
+      <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm" id="password" name="password" type="password" required placeholder="Masukkan Password"/>
      </div>
      <div class="flex items-center justify-between mb-6">
       <div class="flex items-center">

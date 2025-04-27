@@ -1,22 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ServiceController extends Controller
+class ServiceControllerAPI extends Controller
 {
     public function index()
     {
-        $services = Service::all();
-        return view('website.layanan', compact('services'));
-    }
-
-    public function create()
-    {
-        return view('website.services.create');
+        return response()->json(Service::all(), 200);
     }
 
     public function store(Request $request)
@@ -29,22 +24,33 @@ class ServiceController extends Controller
 
         $imagePath = $request->file('image')->store('services', 'public');
 
-        Service::create([
+        $service = Service::create([
             'title' => $request->title,
             'description' => $request->description,
             'image' => $imagePath
         ]);
 
-        return redirect()->route('website.layanan')->with('success', 'Layanan berhasil ditambahkan');
+        return response()->json($service, 201);
     }
 
-    public function edit(Service $service)
+    public function show($id)
     {
-        return view('website.services.edit', compact('service'));
+        $service = Service::find($id);
+
+        if (!$service) {
+            return response()->json(['message' => 'Service not found'], 404);
+        }
+
+        return response()->json($service, 200);
     }
 
-    public function update(Request $request, Service $service)
+    public function update(Request $request, $id)
     {
+        $service = Service::find($id);
+        if (!$service) {
+            return response()->json(['message' => 'Service not found'], 404);
+        }
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -52,10 +58,7 @@ class ServiceController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            // Hapus gambar lama
             Storage::disk('public')->delete($service->image);
-            
-            // Simpan gambar baru
             $imagePath = $request->file('image')->store('services', 'public');
             $service->image = $imagePath;
         }
@@ -64,14 +67,19 @@ class ServiceController extends Controller
         $service->description = $request->description;
         $service->save();
 
-        return redirect()->route('website.layanan')->with('success', 'Layanan berhasil diperbarui');
+        return response()->json($service, 200);
     }
 
-    public function destroy(Service $service)
+    public function destroy($id)
     {
+        $service = Service::find($id);
+        if (!$service) {
+            return response()->json(['message' => 'Service not found'], 404);
+        }
+
         Storage::disk('public')->delete($service->image);
         $service->delete();
 
-        return redirect()->route('website.layanan')->with('success', 'Layanan berhasil dihapus');
+        return response()->json(['message' => 'Service deleted successfully'], 200);
     }
-} 
+}
