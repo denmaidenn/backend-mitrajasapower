@@ -24,8 +24,8 @@ class PengirimanController extends Controller
             'nomor_resi' => 'required|unique:pengiriman',
             'dari' => 'required',
             'ke' => 'required',
-            'latitude' => 'nullable|numeric|between:-90,90',
-            'longitude' => 'nullable|numeric|between:-180,180',
+            'latitude' => 'nullable',
+            'longitude' => 'nullable',
             'jenis_barang' => 'required',
             'tipe_pengiriman' => 'required',
             'status' => 'required|in:Approved,Pending,Complete,Rejected,In Progress'
