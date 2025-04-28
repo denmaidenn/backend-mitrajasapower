@@ -120,11 +120,7 @@
         <table class="w-full">
          <thead>
           <tr class="border-b border-gray-100">
-           @if($pengeluaran->count() > 0)
-           <th class="text-left py-4 px-6 w-16">
-            <input type="checkbox" class="rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-           </th>
-           @endif
+            <th class="text-left py-4 px-6 w-16"></th>
            <th class="text-left py-4 px-6 text-gray-600 font-medium">Tanggal</th>
            <th class="text-left py-4 px-6 text-gray-600 font-medium">Nominal Pengeluaran</th>
            <th class="text-left py-4 px-6 text-gray-600 font-medium">Detail Pengeluaran</th>
