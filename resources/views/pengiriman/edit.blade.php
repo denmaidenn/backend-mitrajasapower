@@ -136,14 +136,18 @@
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Latitude</label>
-                                <input type="text" name="latitude" value="{{ $pengiriman->latitude }}"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 step="any">
+                                <input type="number" step="any" name="latitude" value="{{ $pengiriman->latitude }}"
+                                    placeholder="Contoh: -6.8206 (tanpa simbol derajat)"
+                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
+                                <p class="text-xs text-gray-500 mt-1">Masukkan angka desimal antara -90 sampai 90</p>
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Longitude</label>
-                                <input type="text" name="longitude" value="{{ $pengiriman->longitude }}" 
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 step="any">
+                                <input type="number" step="any" name="longitude" value="{{ $pengiriman->longitude }}"
+                                    placeholder="Contoh: 106.8177 (tanpa simbol derajat)"
+                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
+                                <p class="text-xs text-gray-500 mt-1">Masukkan angka desimal antara -180 sampai 180</p>
                             </div>
 
                             <div>

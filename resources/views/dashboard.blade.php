@@ -9,6 +9,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
         function toggleDropdown() {
             const dropdown = document.getElementById('websiteDropdown');
@@ -120,6 +122,8 @@
                                     <th class="pb-4">Nomor Resi</th>
                                     <th class="pb-4">Dari</th>
                                     <th class="pb-4">Ke</th>
+                                    <th class="pb-4">Latitude</th>
+                                    <th class="pb-4">Longitude</th>
                                     <th class="pb-4">Jenis Barang</th>
                                     <th class="pb-4">Tipe Pengiriman</th>
                                     <th class="pb-4">Status</th>
@@ -131,6 +135,8 @@
                                         <td class="py-4">{{ $item->nomor_resi }}</td>
                                         <td class="py-4">{{ $item->dari }}</td>
                                         <td class="py-4">{{ $item->ke }}</td>
+                                        <td class="py-4">{{ $item->latitude ?? '-' }}</td>
+                                        <td class="py-4">{{ $item->longitude ?? '-' }}</td>
                                         <td class="py-4">{{ $item->jenis_barang }}</td>
                                         <td class="py-4">{{ $item->tipe_pengiriman }}</td>
                                         <td class="py-4">
@@ -147,7 +153,7 @@
                                     </tr>
                                 @empty
                                     <tr class="border-t border-gray-100">
-                                        <td colspan="6" class="py-4 text-center text-gray-500">
+                                        <td colspan="8" class="py-4 text-center text-gray-500">
                                             Tidak ada data pengiriman
                                         </td>
                                     </tr>
@@ -231,21 +237,26 @@
                 }
             }
         });
-    </script>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        const map = L.map('map').setView([-6.2, 106.8], 10); // Jabodetabek area
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
+        // Initialize map after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const map = L.map('map').setView([-6.2, 106.8], 10); // Jabodetabek area
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
 
-        const PengirimanData = @json($pengiriman);
+            const PengirimanData = @json($pengiriman);
 
-        PengirimanData.forEach(k => {
-            const marker = L.marker([k.latitude, k.longitude]).addTo(map);
-            marker.bindPopup(`<b>${k.ke}</b>`);
+            PengirimanData.forEach(k => {
+                if (k.latitude && k.longitude) {
+                    const marker = L.marker([parseFloat(k.latitude), parseFloat(k.longitude)]).addTo(map);
+                    marker.bindPopup(`
+                        <b>${k.ke}</b><br>
+                        Nomor Resi: ${k.nomor_resi}<br>
+                        Status: ${k.status}
+                    `);
+                }
+            });
         });
     </script>
 

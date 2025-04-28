@@ -14,6 +14,8 @@ class Pengiriman extends Model
         'nomor_resi',
         'dari',
         'ke',
+        'latitude',
+        'longitude',
         'jenis_barang',
         'tipe_pengiriman',
         'status'
