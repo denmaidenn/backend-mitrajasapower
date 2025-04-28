@@ -117,12 +117,13 @@
          <tr class="border-b border-gray-100">
           @if($pengiriman->count() > 0)
           <th class="text-left py-4 px-6 w-16">
-           <input type="checkbox" class="rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
           </th>
           @endif
           <th class="text-left py-4 px-6 text-gray-600 font-medium">Nomor Resi</th>
           <th class="text-left py-4 px-6 text-gray-600 font-medium">Dari</th>
           <th class="text-left py-4 px-6 text-gray-600 font-medium">Ke</th>
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Latitude</th>
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Longitude</th>
           <th class="text-left py-4 px-6 text-gray-600 font-medium">Jenis Barang</th>
           <th class="text-left py-4 px-6 text-gray-600 font-medium">Tipe Pengiriman</th>
           <th class="text-left py-4 px-6 text-gray-600 font-medium">Status</th>
@@ -137,6 +138,8 @@
           <td class="py-4 px-6 text-gray-800">{{ $item->nomor_resi }}</td>
           <td class="py-4 px-6 text-gray-800">{{ $item->dari }}</td>
           <td class="py-4 px-6 text-gray-800">{{ $item->ke }}</td>
+          <td class="py-4 px-6 text-gray-800">{{ $item->latitude }}</td>
+          <td class="py-4 px-6 text-gray-800">{{ $item->longitude }}</td>
           <td class="py-4 px-6 text-gray-800">{{ $item->jenis_barang }}</td>
           <td class="py-4 px-6 text-gray-800">{{ $item->tipe_pengiriman }}</td>
           <td class="py-4 px-6">

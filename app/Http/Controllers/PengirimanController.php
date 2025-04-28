@@ -20,16 +20,19 @@ class PengirimanController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'nomor_resi' => 'required|unique:pengiriman',
             'dari' => 'required',
             'ke' => 'required',
+            'latitude' => 'nullable',
+            'longitude' => 'nullable',
             'jenis_barang' => 'required',
             'tipe_pengiriman' => 'required',
             'status' => 'required|in:Approved,Pending,Complete,Rejected,In Progress'
         ]);
 
-        Pengiriman::create($request->all());
+        Pengiriman::create($validatedData);
+
         return redirect()->route('pengiriman.index')->with('success', 'Pengiriman berhasil ditambahkan');
     }
 
@@ -40,16 +43,19 @@ class PengirimanController extends Controller
 
     public function update(Request $request, Pengiriman $pengiriman)
     {
-        $request->validate([
-            'nomor_resi' => 'required|unique:pengiriman,nomor_resi,'.$pengiriman->id,
+        $validatedData = $request->validate([
+            'nomor_resi' => 'required|unique:pengiriman,nomor_resi,' . $pengiriman->id,
             'dari' => 'required',
             'ke' => 'required',
+            'latitude' => 'nullable',
+            'longitude' => 'nullable',
             'jenis_barang' => 'required',
             'tipe_pengiriman' => 'required',
             'status' => 'required|in:Approved,Pending,Complete,Rejected,In Progress'
         ]);
 
-        $pengiriman->update($request->all());
+        $pengiriman->update($validatedData);
+
         return redirect()->route('pengiriman.index')->with('success', 'Pengiriman berhasil diperbarui');
     }
 
@@ -58,4 +64,4 @@ class PengirimanController extends Controller
         $pengiriman->delete();
         return redirect()->route('pengiriman.index')->with('success', 'Pengiriman berhasil dihapus');
     }
-} 
+}
