@@ -52,7 +52,7 @@
                                 <a href="{{ route('website.gallery') }}"
                                     class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Batal</a>
                                 <button type="submit"
-                                    class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Simpan</button>
+                                    class="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">Simpan</button>
                             </div>
                         </div>
                     </form>
