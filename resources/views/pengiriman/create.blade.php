@@ -112,66 +112,112 @@
                 <div class="bg-white rounded-xl p-8 shadow-sm">
                     <h2 class="text-xl font-semibold text-gray-800 mb-6">Form Pengiriman</h2>
 
+                    @if($errors->any())
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <span class="block sm:inline">{{ session('error') }}</span>
+                        </div>
+                    @endif
+
                     <form action="{{ route('pengiriman.store') }}" method="POST" class="space-y-6">
                         @csrf
                         <div class="space-y-5">
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Nomor Resi</label>
-                                <input type="text" name="nomor_resi" placeholder="Masukkan nomor resi pengiriman"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400">
+                                <input type="text" name="nomor_resi" value="{{ old('nomor_resi') }}" placeholder="Masukkan nomor resi pengiriman"
+                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400 @error('nomor_resi') border-red-500 @enderror"
+                                    required>
+                                @error('nomor_resi')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Dari</label>
-                                <input type="text" name="dari" placeholder="Masukkan lokasi awal pengiriman"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400">
+                                <input type="text" name="dari" value="{{ old('dari') }}" placeholder="Masukkan lokasi awal pengiriman"
+                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400 @error('dari') border-red-500 @enderror"
+                                    required>
+                                @error('dari')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Ke</label>
-                                <input type="text" name="ke" placeholder="Masukkan tujuan akhir pengiriman"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400">
+                                <input type="text" name="ke" value="{{ old('ke') }}" placeholder="Masukkan tujuan akhir pengiriman"
+                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400 @error('ke') border-red-500 @enderror"
+                                    required>
+                                @error('ke')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Latitude</label>
-                                <input type="number" step="any" name="latitude" placeholder="Contoh: -6.8206 (tanpa simbol derajat)"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400">
+                                <input type="number" step="any" name="latitude" value="{{ old('latitude') }}" placeholder="Contoh: -6.8206 (tanpa simbol derajat)"
+                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400 @error('latitude') border-red-500 @enderror">
                                 <p class="text-xs text-gray-500 mt-1">Masukkan angka desimal antara -90 sampai 90</p>
+                                @error('latitude')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Longitude</label>
-                                <input type="number" step="any" name="longitude" placeholder="Contoh: 106.8177 (tanpa simbol derajat)"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400">
+                                <input type="number" step="any" name="longitude" value="{{ old('longitude') }}" placeholder="Contoh: 106.8177 (tanpa simbol derajat)"
+                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400 @error('longitude') border-red-500 @enderror">
                                 <p class="text-xs text-gray-500 mt-1">Masukkan angka desimal antara -180 sampai 180</p>
+                                @error('longitude')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Jenis Barang</label>
-                                <input type="text" name="jenis_barang"
-                                    placeholder="Masukkan jenis barang yang ingin dikirim"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400">
+                                <input type="text" name="jenis_barang" value="{{ old('jenis_barang') }}" placeholder="Masukkan jenis barang yang ingin dikirim"
+                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400 @error('jenis_barang') border-red-500 @enderror"
+                                    required>
+                                @error('jenis_barang')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Tipe Pengiriman</label>
-                                <input type="text" name="tipe_pengiriman" placeholder="Masukkan tipe jasa pengiriman"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400">
+                                <input type="text" name="tipe_pengiriman" value="{{ old('tipe_pengiriman') }}" placeholder="Masukkan tipe jasa pengiriman"
+                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 placeholder-gray-400 @error('tipe_pengiriman') border-red-500 @enderror"
+                                    required>
+                                @error('tipe_pengiriman')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Status Pengiriman</label>
-                                <div class="bg-yellow-50 text-yellow-800 px-3 py-2 rounded-lg inline-block text-sm">
-                                    Pending
-                                </div>
-                                <input type="hidden" name="status" value="Pending">
+                                <select name="status" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500 @error('status') border-red-500 @enderror" required>
+                                    <option value="Pending" {{ old('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="Approved" {{ old('status') == 'Approved' ? 'selected' : '' }}>Approved</option>
+                                    <option value="In Progress" {{ old('status') == 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                                    <option value="Complete" {{ old('status') == 'Complete' ? 'selected' : '' }}>Complete</option>
+                                    <option value="Rejected" {{ old('status') == 'Rejected' ? 'selected' : '' }}>Rejected</option>
+                                </select>
+                                @error('status')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="flex justify-end pt-4">
-                            <button type="submit"
-                                class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 text-sm font-medium">
+                            <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 text-sm font-medium">
                                 Tambah
                             </button>
                         </div>

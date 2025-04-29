@@ -240,14 +240,14 @@
 
         // Initialize map after DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            const map = L.map('map').setView([-6.2, 106.8], 10); // Jabodetabek area
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
+        const map = L.map('map').setView([-6.2, 106.8], 10); // Jabodetabek area
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
 
-            const PengirimanData = @json($pengiriman);
+        const PengirimanData = @json($pengiriman);
 
-            PengirimanData.forEach(k => {
+        PengirimanData.forEach(k => {
                 if (k.latitude && k.longitude) {
                     const marker = L.marker([parseFloat(k.latitude), parseFloat(k.longitude)]).addTo(map);
                     marker.bindPopup(`

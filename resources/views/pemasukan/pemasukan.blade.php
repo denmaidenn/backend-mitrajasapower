@@ -98,6 +98,9 @@
                             <button id="editBtn" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 font-medium">
                                 Edit
                             </button>
+                            <button onclick="showExportModal('pemasukan')" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 font-medium">
+                                Export
+                            </button>
                             <button id="deleteBtn" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 font-medium">
                                 Hapus
                             </button>
@@ -106,6 +109,15 @@
                             </a>
                         </div>
                     </div>
+
+                    <!-- Search Form -->
+                    <form action="{{ route('pemasukan.index') }}" method="GET" class="mb-6">
+                        <div class="relative">
+                            <input type="text" name="search" value="{{ request('search') }}" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                                placeholder="Cari pemasukan... (ketik untuk mencari)" id="searchInput">
+                        </div>
+                    </form>
 
                     <div class="overflow-x-auto">
                         <table class="w-full">
@@ -141,6 +153,38 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div id="exportModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-xl w-96">
+            <h3 class="text-xl font-semibold mb-4">Export Data</h3>
+            <form id="exportForm" class="space-y-4">
+                <!-- Date Range Selection -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">Rentang Tanggal</label>
+                    <div class="flex space-x-2">
+                        <input type="date" name="export_start_date" id="export_start_date"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <input type="date" name="export_end_date" id="export_end_date"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                
+                <!-- Export Buttons -->
+                <div class="space-y-2">
+                    <button type="button" onclick="exportData('excel')" class="w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+                        Export ke Excel
+                    </button>
+                    <button type="button" onclick="exportData('pdf')" class="w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                        Export ke PDF
+                    </button>
+                    <button type="button" onclick="hideExportModal()" class="w-full bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">
+                        Batal
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -181,6 +225,48 @@
                 }
             } else {
                 alert('Pilih pemasukan yang akan dihapus');
+            }
+        });
+
+        function showExportModal(type) {
+            const modal = document.getElementById('exportModal');
+            const exportForm = document.getElementById('exportForm');
+            
+            // Set today's date as default
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('export_start_date').value = today;
+            document.getElementById('export_end_date').value = today;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function hideExportModal() {
+            const modal = document.getElementById('exportModal');
+            modal.classList.add('hidden');
+        }
+
+        function exportData(format) {
+            const startDate = document.getElementById('export_start_date').value;
+            const endDate = document.getElementById('export_end_date').value;
+            const type = 'pemasukan';
+            
+            // Redirect to export URL with date parameters
+            window.location.href = `/export/${type}/${format}?export_start_date=${startDate}&export_end_date=${endDate}`;
+        }
+
+        // Handle real-time search
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = this.value;
+            const form = this.form;
+            
+            // Submit form when user types
+            form.submit();
+        });
+
+        // Remove the Enter key handler since we're using real-time search
+        document.querySelector('input[name="search"]').removeEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                this.form.submit();
             }
         });
     </script>

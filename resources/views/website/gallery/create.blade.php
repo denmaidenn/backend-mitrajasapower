@@ -21,31 +21,31 @@
                 </div>
             </div>
             <div class="bg-white rounded-2xl p-8 shadow-sm">
-                <form action="{{ route('website.gallery.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Judul Foto</label>
-                            <input type="text" name="title"
+            <form action="{{ route('website.gallery.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Judul Foto</label>
+                        <input type="text" name="title"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                                required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Foto Cover</label>
-                            <input type="file" name="image" accept="image/*"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                                required>
-                        </div>
-                        <div class="flex justify-end space-x-2">
-                            <a href="{{ route('website.gallery') }}"
-                                class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Batal</a>
-                            <button type="submit"
-                                class="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">Simpan</button>
-                        </div>
+                            required>
                     </div>
-                </form>
-            </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Foto Cover</label>
+                        <input type="file" name="image" accept="image/*"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                            required>
+                    </div>
+                    <div class="flex justify-end space-x-2">
+                        <a href="{{ route('website.gallery') }}"
+                            class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Batal</a>
+                        <button type="submit"
+                                class="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">Simpan</button>
+                    </div>
+                </div>
+            </form>
         </div>
+    </div>
     </div>
     <script>
         function toggleDropdown() {

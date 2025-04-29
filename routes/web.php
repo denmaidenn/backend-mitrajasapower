@@ -10,6 +10,7 @@ use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExportController;
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -84,4 +85,6 @@ Route::middleware('auth')->group(function () {
         Route::put('/pusatbantuan/{id}', [PusatBantuanController::class, 'update'])->name('pusatbantuan.update');
         Route::delete('/pusatbantuan/{id}', [PusatBantuanController::class, 'destroy'])->name('pusatbantuan.destroy');
     });
+
+    Route::get('/export/{type}/{format}', [ExportController::class, 'export'])->name('export');
 });
