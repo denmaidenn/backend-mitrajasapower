@@ -93,7 +93,22 @@
                 <!-- Main Card -->
                 <div class="bg-white rounded-xl p-8 shadow-sm">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-xl font-bold text-gray-800">Detail Pemasukan</h2>
+                        <div class="flex items-center space-x-4">
+                            <form action="{{ route('pemasukan.index') }}" method="GET" class="flex items-center space-x-4">
+                                <input type="text" name="search" value="{{ request('search') }}" 
+                                    class="w-64 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                                    placeholder="Cari pemasukan" id="searchInput">
+                                <select name="year" onchange="this.form.submit()" 
+                                    class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="">Semua Tahun</option>
+                                    @foreach($years as $year)
+                                        <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>
+                                            {{ $year }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </form>
+                        </div>
                         <div class="flex space-x-2">
                             <button id="editBtn" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 font-medium">
                                 Edit
@@ -109,15 +124,6 @@
                             </a>
                         </div>
                     </div>
-
-                    <!-- Search Form -->
-                    <form action="{{ route('pemasukan.index') }}" method="GET" class="mb-6">
-                        <div class="relative">
-                            <input type="text" name="search" value="{{ request('search') }}" 
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                placeholder="Cari pemasukan... (ketik untuk mencari)" id="searchInput">
-                        </div>
-                    </form>
 
                     <div class="overflow-x-auto">
                         <table class="w-full">
@@ -254,13 +260,13 @@
             window.location.href = `/export/${type}/${format}?export_start_date=${startDate}&export_end_date=${endDate}`;
         }
 
-        // Handle real-time search
+        // Handle real-time search with debounce
+        let searchTimeout;
         document.getElementById('searchInput').addEventListener('input', function(e) {
-            const searchTerm = this.value;
-            const form = this.form;
-            
-            // Submit form when user types
-            form.submit();
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                this.form.submit();
+            }, 500); // 500ms delay
         });
 
         // Remove the Enter key handler since we're using real-time search

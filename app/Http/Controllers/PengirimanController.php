@@ -24,6 +24,11 @@ class PengirimanController extends Controller
             });
         }
 
+        // Filter tahun
+        if ($request->has('year') && $request->year != '') {
+            $query->whereYear('created_at', $request->year);
+        }
+
         // Date range filter - hanya untuk export
         if ($request->has('export_start_date') && $request->export_start_date) {
             $query->whereDate('created_at', '>=', $request->export_start_date);
@@ -33,7 +38,12 @@ class PengirimanController extends Controller
         }
 
         $pengiriman = $query->orderBy('created_at', 'desc')->get();
-        return view('pengiriman.pengiriman', compact('pengiriman'));
+        
+        // Generate range tahun (5 tahun ke belakang dan 5 tahun ke depan dari tahun sekarang)
+        $currentYear = now()->year;
+        $years = range($currentYear - 5, $currentYear + 5);
+        
+        return view('pengiriman.pengiriman', compact('pengiriman', 'years'));
     }
 
     public function create()
