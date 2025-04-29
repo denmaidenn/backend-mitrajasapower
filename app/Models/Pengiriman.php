@@ -11,6 +11,7 @@ class Pengiriman extends Model
 
     protected $table = 'pengiriman';
     protected $fillable = [
+        'tanggal',
         'nomor_resi',
         'dari',
         'ke',
@@ -19,5 +20,9 @@ class Pengiriman extends Model
         'jenis_barang',
         'tipe_pengiriman',
         'status'
+    ];
+
+    protected $casts = [
+        'tanggal' => 'date'
     ];
 } 

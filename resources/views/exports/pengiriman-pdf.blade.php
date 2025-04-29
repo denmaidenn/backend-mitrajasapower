@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Laporan Pengiriman</title>
+    <title>Data Pengiriman</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,10 +19,35 @@
         th {
             background-color: #f2f2f2;
         }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .status-approved {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status-rejected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
     </style>
 </head>
 <body>
-    <h1>Laporan Pengiriman</h1>
+    <div class="header">
+        <h2>Data Pengiriman</h2>
+        <p>Tanggal Export: {{ date('d/m/Y') }}</p>
+    </div>
+
     <table>
         <thead>
             <tr>
@@ -35,16 +60,24 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($data as $item)
-            <tr>
-                <td>{{ $item->nomor_resi }}</td>
-                <td>{{ $item->dari }}</td>
-                <td>{{ $item->ke }}</td>
-                <td>{{ $item->jenis_barang }}</td>
-                <td>{{ $item->tipe_pengiriman }}</td>
-                <td>{{ $item->status }}</td>
-            </tr>
-            @endforeach
+            @forelse($data as $item)
+                <tr>
+                    <td>{{ $item->nomor_resi }}</td>
+                    <td>{{ $item->dari }}</td>
+                    <td>{{ $item->ke }}</td>
+                    <td>{{ $item->jenis_barang }}</td>
+                    <td>{{ $item->tipe_pengiriman }}</td>
+                    <td>
+                        <span class="status status-{{ strtolower($item->status) }}">
+                            {{ $item->status }}
+                        </span>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="6" style="text-align: center;">Tidak ada data pengiriman</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 </body>

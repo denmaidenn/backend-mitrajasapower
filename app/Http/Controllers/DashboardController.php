@@ -35,7 +35,10 @@ class DashboardController extends Controller
             : 0;
 
         // Ambil data pengiriman terbaru (5 teratas)
-        $pengiriman = Pengiriman::latest()->take(5)->get();
+        $pengiriman = Pengiriman::orderBy('tanggal', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
 
         // Data untuk grafik
         $months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];

@@ -120,6 +120,7 @@
                             <thead>
                                 <tr class="text-left text-sm text-gray-500">
                                     <th class="pb-4">Nomor Resi</th>
+                                    <th class="pb-4">Tanggal</th>
                                     <th class="pb-4">Dari</th>
                                     <th class="pb-4">Ke</th>
                                     <th class="pb-4">Latitude</th>
@@ -133,6 +134,7 @@
                                 @forelse($pengiriman as $item)
                                     <tr class="border-t border-gray-100">
                                         <td class="py-4">{{ $item->nomor_resi }}</td>
+                                        <td class="py-4">{{ $item->tanggal ? $item->tanggal->format('d/m/Y') : '-' }}</td>
                                         <td class="py-4">{{ $item->dari }}</td>
                                         <td class="py-4">{{ $item->ke }}</td>
                                         <td class="py-4">{{ $item->latitude ?? '-' }}</td>

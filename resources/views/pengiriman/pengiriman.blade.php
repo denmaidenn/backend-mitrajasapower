@@ -138,6 +138,7 @@
           <th class="text-left py-4 px-6 w-16">
           </th>
           @endif
+          <th class="text-left py-4 px-6 text-gray-600 font-medium">Tanggal</th>
           <th class="text-left py-4 px-6 text-gray-600 font-medium">Nomor Resi</th>
           <th class="text-left py-4 px-6 text-gray-600 font-medium">Dari</th>
           <th class="text-left py-4 px-6 text-gray-600 font-medium">Ke</th>
@@ -154,6 +155,7 @@
           <td class="py-4 px-6">
            <input type="checkbox" class="pengiriman-checkbox rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $item->id }}">
           </td>
+          <td class="py-4 px-6 text-gray-800">{{ $item->tanggal ? $item->tanggal->format('d/m/Y') : '-' }}</td>
           <td class="py-4 px-6 text-gray-800">{{ $item->nomor_resi }}</td>
           <td class="py-4 px-6 text-gray-800">{{ $item->dari }}</td>
           <td class="py-4 px-6 text-gray-800">{{ $item->ke }}</td>
@@ -254,20 +256,20 @@
       });
      }
     } else {
-     alert('Pilih pengiriman yang akan dihapus');
+     alert('Pilih setidaknya satu pengiriman untuk dihapus');
     }
    });
 
-   function showExportModal(type) {
+   // Export Modal Functions
+   function showExportModal() {
     const modal = document.getElementById('exportModal');
-    const exportForm = document.getElementById('exportForm');
-    
-    // Set today's date as default
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('export_start_date').value = today;
-    document.getElementById('export_end_date').value = today;
-    
     modal.classList.remove('hidden');
+    
+    // Set default dates
+    const today = new Date();
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+    document.getElementById('export_start_date').value = firstDay.toISOString().split('T')[0];
+    document.getElementById('export_end_date').value = today.toISOString().split('T')[0];
    }
 
    function hideExportModal() {
@@ -280,18 +282,22 @@
     const endDate = document.getElementById('export_end_date').value;
     const type = 'pengiriman';
     
-    // Redirect to export URL with date parameters
+    if (!startDate || !endDate) {
+     alert('Silakan pilih rentang tanggal');
+     return;
+    }
+
     window.location.href = `/export/${type}/${format}?export_start_date=${startDate}&export_end_date=${endDate}`;
    }
 
-   // Handle real-time search with debounce
+   // Real-time search with debounce
    let searchTimeout;
-   document.getElementById('searchInput').addEventListener('input', function(e) {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-            this.form.submit();
-        }, 500); // 500ms delay
-    });
+   document.getElementById('searchInput').addEventListener('input', function() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+     this.form.submit();
+    }, 500);
+   });
   </script>
 </body>
 
