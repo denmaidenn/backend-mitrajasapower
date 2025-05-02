@@ -111,80 +111,118 @@
                 <div class="bg-white rounded-xl p-8 shadow-sm">
                     <h2 class="text-xl font-semibold text-gray-800 mb-6">Form Pengiriman</h2>
 
-                    <form action="{{ route('pengiriman.update', $pengiriman->id) }}" method="POST" class="space-y-6">
+                    @if($errors->any())
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <span class="block sm:inline">{{ session('error') }}</span>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('pengiriman.update', $pengiriman->id) }}" method="POST" class="space-y-4">
                         @csrf
                         @method('PUT')
 
-                        <div class="space-y-5">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Nomor Resi</label>
-                                <input type="text" name="nomor_resi" value="{{ $pengiriman->nomor_resi }}"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
-                            </div>
+                        <div>
+                            <label for="tanggal" class="block text-sm font-medium text-gray-700">Tanggal</label>
+                            <input type="date" name="tanggal" id="tanggal" value="{{ old('tanggal', $pengiriman->tanggal?->format('Y-m-d')) }}" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                            @error('tanggal')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                            <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Dari</label>
-                                <input type="text" name="dari" value="{{ $pengiriman->dari }}"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
-                            </div>
+                        <div>
+                            <label for="nomor_resi" class="block text-sm font-medium text-gray-700">Nomor Resi</label>
+                            <input type="text" name="nomor_resi" id="nomor_resi" value="{{ old('nomor_resi', $pengiriman->nomor_resi) }}"
+                                class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-700" required>
+                            @error('nomor_resi')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                            <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Ke</label>
-                                <input type="text" name="ke" value="{{ $pengiriman->ke }}"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
-                            </div>
+                        <div>
+                            <label for="dari" class="block text-sm font-medium text-gray-700">Dari</label>
+                            <input type="text" name="dari" id="dari" value="{{ old('dari', $pengiriman->dari) }}"
+                                class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-700" required>
+                            @error('dari')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                            <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Latitude</label>
-                                <input type="number" step="any" name="latitude" value="{{ $pengiriman->latitude }}"
-                                    placeholder="Contoh: -6.8206 (tanpa simbol derajat)"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
-                                <p class="text-xs text-gray-500 mt-1">Masukkan angka desimal antara -90 sampai 90</p>
-                            </div>
+                        <div>
+                            <label for="ke" class="block text-sm font-medium text-gray-700">Ke</label>
+                            <input type="text" name="ke" id="ke" value="{{ old('ke', $pengiriman->ke) }}"
+                                class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-700" required>
+                            @error('ke')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                            <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Longitude</label>
-                                <input type="number" step="any" name="longitude" value="{{ $pengiriman->longitude }}"
-                                    placeholder="Contoh: 106.8177 (tanpa simbol derajat)"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
-                                <p class="text-xs text-gray-500 mt-1">Masukkan angka desimal antara -180 sampai 180</p>
-                            </div>
+                        <div>
+                            <label for="latitude" class="block text-sm font-medium text-gray-700">Latitude</label>
+                            <input type="number" step="any" name="latitude" id="latitude" value="{{ old('latitude', $pengiriman->latitude) }}"
+                                class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-700" required>
+                            @error('latitude')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                            <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Jenis Barang</label>
-                                <input type="text" name="jenis_barang" value="{{ $pengiriman->jenis_barang }}"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
-                            </div>
+                        <div>
+                            <label for="longitude" class="block text-sm font-medium text-gray-700">Longitude</label>
+                            <input type="number" step="any" name="longitude" id="longitude" value="{{ old('longitude', $pengiriman->longitude) }}"
+                                class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-700" required>
+                            @error('longitude')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                            <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Tipe Pengiriman</label>
-                                <input type="text" name="tipe_pengiriman" value="{{ $pengiriman->tipe_pengiriman }}"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-500">
-                            </div>
+                        <div>
+                            <label for="jenis_barang" class="block text-sm font-medium text-gray-700">Jenis Barang</label>
+                            <input type="text" name="jenis_barang" id="jenis_barang" value="{{ old('jenis_barang', $pengiriman->jenis_barang) }}"
+                                class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-700" required>
+                            @error('jenis_barang')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Status Pengiriman</label>
-                                <select name="status"
-                                    class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
-                                    <option value="Pending" {{ $pengiriman->status == 'Pending' ? 'selected' : '' }}
-                                        class="bg-yellow-50 text-yellow-800">Pending</option>
-                                    <option value="Approved" {{ $pengiriman->status == 'Approved' ? 'selected' : '' }}
-                                        class="bg-green-50 text-green-800">Approved</option>
-                                    <option value="Complete" {{ $pengiriman->status == 'Complete' ? 'selected' : '' }}
-                                        class="bg-green-50 text-green-800">Complete</option>
-                                    <option value="Rejected" {{ $pengiriman->status == 'Rejected' ? 'selected' : '' }}
-                                        class="bg-red-50 text-red-800">Rejected</option>
-                                    <option value="In Progress"
-                                        {{ $pengiriman->status == 'In Progress' ? 'selected' : '' }}
-                                        class="bg-purple-50 text-purple-800">In Progress</option>
+                        <div>
+                            <label for="tipe_pengiriman" class="block text-sm font-medium text-gray-700">Tipe Pengiriman</label>
+                            <input type="text" name="tipe_pengiriman" id="tipe_pengiriman" value="{{ old('tipe_pengiriman', $pengiriman->tipe_pengiriman) }}"
+                                class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-700" required>
+                            @error('tipe_pengiriman')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                                </select>
-                            </div>
+                        <div>
+                            <label for="status" class="block text-sm font-medium text-gray-700">Status Pengiriman</label>
+                            <select name="status" id="status"
+                                class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500" required>
+                                <option value="Pending" {{ old('status', $pengiriman->status) == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="Approved" {{ old('status', $pengiriman->status) == 'Approved' ? 'selected' : '' }}>Approved</option>
+                                <option value="Complete" {{ old('status', $pengiriman->status) == 'Complete' ? 'selected' : '' }}>Complete</option>
+                                <option value="Rejected" {{ old('status', $pengiriman->status) == 'Rejected' ? 'selected' : '' }}>Rejected</option>
+                                <option value="In Progress" {{ old('status', $pengiriman->status) == 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                            </select>
+                            @error('status')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="flex justify-end pt-4">
-                            <button type="submit"
-                                class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 text-sm font-medium">
+                            <a href="{{ route('pengiriman.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 text-sm font-medium mr-2">
+                                Batal
+                            </a>
+                            <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 text-sm font-medium">
                                 Simpan
                             </button>
                         </div>

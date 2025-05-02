@@ -53,30 +53,22 @@ class PengirimanController extends Controller
 
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'tanggal' => 'required|date',
+            'nomor_resi' => 'required|string|max:255',
+            'dari' => 'required|string|max:255',
+            'ke' => 'required|string|max:255',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'jenis_barang' => 'required|string|max:255',
+            'tipe_pengiriman' => 'required|string|max:255',
+            'status' => 'required|string|max:255'
+        ]);
+
         try {
-            $validatedData = $request->validate([
-                'nomor_resi' => 'required|unique:pengiriman',
-                'dari' => 'required',
-                'ke' => 'required',
-                'latitude' => 'nullable|numeric|between:-90,90',
-                'longitude' => 'nullable|numeric|between:-180,180',
-                'jenis_barang' => 'required',
-                'tipe_pengiriman' => 'required',
-                'status' => 'required|in:Approved,Pending,Complete,Rejected,In Progress'
-            ]);
-
-            \Log::info('Validasi berhasil, mencoba menyimpan data:', $validatedData);
-
-            $pengiriman = Pengiriman::create($validatedData);
-            
-            \Log::info('Data berhasil disimpan:', ['id' => $pengiriman->id]);
-            
+            Pengiriman::create($validatedData);
             return redirect()->route('pengiriman.index')->with('success', 'Pengiriman berhasil ditambahkan');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            \Log::error('Validasi gagal:', ['errors' => $e->errors()]);
-            return redirect()->back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
-            \Log::error('Error saat menyimpan pengiriman:', ['error' => $e->getMessage()]);
             return redirect()->back()->with('error', 'Gagal menambahkan pengiriman: ' . $e->getMessage())->withInput();
         }
     }
@@ -88,20 +80,36 @@ class PengirimanController extends Controller
 
     public function update(Request $request, Pengiriman $pengiriman)
     {
-        $validatedData = $request->validate([
-            'nomor_resi' => 'required|unique:pengiriman,nomor_resi,' . $pengiriman->id,
-            'dari' => 'required',
-            'ke' => 'required',
-            'latitude' => 'nullable|numeric|between:-90,90',
-            'longitude' => 'nullable|numeric|between:-180,180',
-            'jenis_barang' => 'required',
-            'tipe_pengiriman' => 'required',
-            'status' => 'required|in:Approved,Pending,Complete,Rejected,In Progress'
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'tanggal' => 'required|date',
+                'nomor_resi' => 'required|string|max:255|unique:pengiriman,nomor_resi,' . $pengiriman->id,
+                'dari' => 'required|string|max:255',
+                'ke' => 'required|string|max:255',
+                'latitude' => 'required|numeric|between:-90,90',
+                'longitude' => 'required|numeric|between:-180,180',
+                'jenis_barang' => 'required|string|max:255',
+                'tipe_pengiriman' => 'required|string|max:255',
+                'status' => 'required|in:Pending,Approved,Complete,Rejected,In Progress'
+            ]);
 
-        $pengiriman->update($validatedData);
-
-        return redirect()->route('pengiriman.index')->with('success', 'Pengiriman berhasil diperbarui');
+            $pengiriman->update($validatedData);
+            
+            return redirect()
+                ->route('pengiriman.index')
+                ->with('success', 'Pengiriman berhasil diperbarui');
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()
+                ->back()
+                ->withErrors($e->errors())
+                ->withInput();
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Gagal memperbarui pengiriman: ' . $e->getMessage())
+                ->withInput();
+        }
     }
 
     public function destroy(Pengiriman $pengiriman)
