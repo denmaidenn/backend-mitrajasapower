@@ -15,7 +15,7 @@
  <body class="h-screen flex items-center justify-center bg-gray-100">
   <div class="flex w-full h-full">
    <div class="w-1/2 relative">
-    <img alt="A delivery person holding packages" class="w-full h-full object-cover" src="{{ asset('storage/auth/delivery-person.jpg') }}"/>
+    <img alt="A delivery person holding packages" class="w-full h-full object-cover" src="{{ asset('images/login.png') }}"/>
     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
      <h1 class="text-white text-4xl font-bold">
       Silakan Membuat Akun!
