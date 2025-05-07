@@ -110,9 +110,33 @@
                 <div class="bg-white rounded-xl p-6 shadow-sm mb-8">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-bold">Pengiriman</h2>
-                        <button class="text-gray-400 hover:text-gray-600">
-                            <i class="fas fa-ellipsis-h"></i>
-                        </button>
+                        <div class="relative">
+                            <button id="statusDropdownButton" onclick="toggleStatusDropdown()" class="px-4 py-2 text-sm rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center gap-2">
+                                <span id="selectedStatus">Semua</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div id="statusDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
+                                <div class="py-1">
+                                    <button onclick="filterStatus('all', 'Semua')" class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        Semua
+                                    </button>
+                                    <button onclick="filterStatus('Approved', 'Approved')" class="block w-full px-4 py-2 text-sm text-yellow-600 hover:bg-yellow-100">
+                                        Approved
+                                    </button>
+                                    <button onclick="filterStatus('Pending', 'Pending')" class="block w-full px-4 py-2 text-sm text-blue-600 hover:bg-blue-100">
+                                        Pending
+                                    </button>
+                                    <button onclick="filterStatus('Complete', 'Complete')" class="block w-full px-4 py-2 text-sm text-green-600 hover:bg-green-100">
+                                        Complete
+                                    </button>
+                                    <button onclick="filterStatus('Rejected', 'Rejected')" class="block w-full px-4 py-2 text-sm text-red-600 hover:bg-red-100">
+                                        Rejected
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="overflow-x-auto">
@@ -132,7 +156,7 @@
                             </thead>
                             <tbody class="text-sm">
                                 @forelse($pengiriman as $item)
-                                    <tr class="border-t border-gray-100">
+                                    <tr class="border-t border-gray-100 shipping-row" data-status="{{ $item->status }}">
                                         <td class="py-4">{{ $item->nomor_resi }}</td>
                                         <td class="py-4">{{ $item->tanggal ? $item->tanggal->format('d/m/Y') : '-' }}</td>
                                         <td class="py-4">{{ $item->dari }}</td>
@@ -144,12 +168,12 @@
                                         <td class="py-4">
                                             <span
                                                 class="px-3 py-1 text-xs rounded-full 
-            @if ($item->status == 'Approved') bg-yellow-100 text-yellow-600 py-2 rounded-lg inline-block text-sm
-            @elseif($item->status == 'Pending') bg-blue-100 text-blue-600 py-2 rounded-lg inline-block text-sm
-            @elseif($item->status == 'Complete') bg-green-100 text-green-600 py-2 rounded-lg inline-block text-sm
-            @elseif($item->status == 'Rejected') bg-red-100 text-red-600 py-2 rounded-lg inline-block text-sm
-            @else bg-purple-100 text-purple-600 py-2 rounded-lg inline-block text-sm @endif">
-                                                {{ $item->status }}
+                                                    @if ($item->status == 'Approved') bg-yellow-100 text-yellow-600 py-2 rounded-lg inline-block text-sm
+                                                    @elseif($item->status == 'Pending') bg-blue-100 text-blue-600 py-2 rounded-lg inline-block text-sm
+                                                    @elseif($item->status == 'Complete') bg-green-100 text-green-600 py-2 rounded-lg inline-block text-sm
+                                                    @elseif($item->status == 'Rejected') bg-red-100 text-red-600 py-2 rounded-lg inline-block text-sm
+                                                    @else bg-purple-100 text-purple-600 py-2 rounded-lg inline-block text-sm @endif">
+                                                    {{ $item->status }}
                                             </span>
                                         </td>
                                     </tr>
@@ -164,6 +188,34 @@
                         </table>
                     </div>
                 </div>
+                <script>
+                    function toggleStatusDropdown() {
+                        const dropdown = document.getElementById('statusDropdown');
+                        dropdown.classList.toggle('hidden');
+                    }
+
+                    function filterStatus(status, label) {
+                        const rows = document.querySelectorAll('.shipping-row');
+                        rows.forEach(row => {
+                            if (status === 'all' || row.dataset.status === status) {
+                                row.style.display = '';
+                            } else {
+                                row.style.display = 'none';
+                            }
+                        });
+                        // Update selected status text
+                        document.getElementById('selectedStatus').textContent = label;
+                        // Hide dropdown after selection
+                        document.getElementById('statusDropdown').classList.add('hidden');
+                    }
+
+                    // Close dropdown when clicking outside
+                    window.addEventListener('click', function(e) {
+                        if (!e.target.closest('#statusDropdownButton')) {
+                            document.getElementById('statusDropdown').classList.add('hidden');
+                        }
+                    });
+                </script>
                 <!-- Peta Pengiriman Section -->
                 <div class="bg-white rounded-xl p-6 shadow-sm">
                     <div class="flex justify-between items-center mb-6">
