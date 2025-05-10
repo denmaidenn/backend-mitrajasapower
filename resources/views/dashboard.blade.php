@@ -214,45 +214,7 @@
                     
                 </div>
 
-                <script>
-                let sortOrders = Array(9).fill('asc'); // Track sort order for each column
 
-                function sortTable(columnIndex) {
-                    const table = document.getElementById('pengirimanTable');
-                    const tbody = table.getElementsByTagName('tbody')[0];
-                    const rows = Array.from(tbody.getElementsByTagName('tr'));
-                    
-                    // Skip if there's only one row (empty message) or no rows
-                    if (rows.length <= 1) return;
-
-                    // Toggle sort order for this column
-                    sortOrders[columnIndex] = sortOrders[columnIndex] === 'asc' ? 'desc' : 'asc';
-                    const multiplier = sortOrders[columnIndex] === 'asc' ? 1 : -1;
-
-                    rows.sort((a, b) => {
-                        let aValue = a.cells[columnIndex].textContent.trim();
-                        let bValue = b.cells[columnIndex].textContent.trim();
-
-                        // Special handling for date column (index 1)
-                        if (columnIndex === 1) {
-                            // Convert DD/MM/YYYY to YYYY-MM-DD for proper comparison
-                            aValue = aValue.split('/').reverse().join('-');
-                            bValue = bValue.split('/').reverse().join('-');
-                        }
-                        // Special handling for numeric columns (latitude, longitude)
-                        else if (columnIndex === 4 || columnIndex === 5) {
-                            aValue = parseFloat(aValue) || 0;
-                            bValue = parseFloat(bValue) || 0;
-                            return (aValue - bValue) * multiplier;
-                        }
-
-                        return aValue.localeCompare(bValue) * multiplier;
-                    });
-
-                    // Reinsert sorted rows
-                    rows.forEach(row => tbody.appendChild(row));
-                }
-                </script>
 
                 <!-- Peta Pengiriman Section -->
                 <div class="bg-white rounded-xl p-6 shadow-sm">
@@ -478,6 +440,50 @@
                 document.getElementById('yearDropdown').classList.add('hidden');
             }
         });
+
+        
+        // Filter ascending descending pada table pengiriman
+        let sortOrders = Array(9).fill('asc'); // Track sort order for each column
+
+        function sortTable(columnIndex) {
+        const table = document.getElementById('pengirimanTable');
+        const tbody = table.getElementsByTagName('tbody')[0];
+        const rows = Array.from(tbody.getElementsByTagName('tr'));
+        
+        // Skip if there's only one row (empty message) or no rows
+        if (rows.length <= 1) return;
+
+        // Toggle sort order for this column
+        sortOrders[columnIndex] = sortOrders[columnIndex] === 'asc' ? 'desc' : 'asc';
+        const multiplier = sortOrders[columnIndex] === 'asc' ? 1 : -1;
+
+        rows.sort((a, b) => {
+            let aValue = a.cells[columnIndex].textContent.trim();
+            let bValue = b.cells[columnIndex].textContent.trim();
+
+            // Special handling for date column (index 1)
+            if (columnIndex === 1) {
+                // Convert DD/MM/YYYY to YYYY-MM-DD for proper comparison
+                aValue = aValue.split('/').reverse().join('-');
+                bValue = bValue.split('/').reverse().join('-');
+            }
+            // Special handling for numeric columns (latitude, longitude)
+            else if (columnIndex === 4 || columnIndex === 5) {
+                aValue = parseFloat(aValue) || 0;
+                bValue = parseFloat(bValue) || 0;
+                return (aValue - bValue) * multiplier;
+            }
+
+            return aValue.localeCompare(bValue) * multiplier;
+        });
+
+        // Reinsert sorted rows
+        rows.forEach(row => tbody.appendChild(row));
+    }
+    </script>
+
+<script>
+
     </script>
 
 </body>
