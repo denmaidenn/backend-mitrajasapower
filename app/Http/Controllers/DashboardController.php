@@ -37,7 +37,6 @@ class DashboardController extends Controller
         // Ambil data pengiriman terbaru (5 teratas)
         $pengiriman = Pengiriman::orderBy('tanggal', 'desc')
             ->orderBy('created_at', 'desc')
-            ->take(5)
             ->get();
 
         // Data untuk grafik
