@@ -122,7 +122,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                     </svg>
                                 </button>
-                                <div id="yearDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
+                                <div id="yearDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
                                     <div class="py-1 max-h-60 overflow-y-auto">
                                         @php
                                             $currentYear = date('Y');
@@ -146,7 +146,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                     </svg>
                                 </button>
-                                <div id="statusDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
+                                <div id="statusDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
                                     <div class="py-1">
                                         <button onclick="filterStatus('all', 'Semua')" class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Semua</button>
                                         <button onclick="filterStatus('Approved', 'Approved')" class="block w-full px-4 py-2 text-sm text-yellow-600 hover:bg-yellow-100">Approved</button>
@@ -162,7 +162,8 @@
                     <div class="overflow-x-auto">
                         <div class="max-h-[340px] overflow-y-auto [&::-webkit-scrollbar]:hidden" style="scrollbar-width: none; -ms-overflow-style: none;">
                             <table class="w-full" id="pengirimanTable">
-                                <thead class="bg-gray-50 sticky top-0 z-10">
+                                <thead class="bg-transparent backdrop-blur sticky top-0 z-10">
+
                                     <tr class="text-left text-sm text-gray-500">
                                         <th class="pb-4 cursor-pointer hover:bg-gray-100" onclick="sortTable(0)">Nomor Resi</th>
                                         <th class="pb-4 cursor-pointer hover:bg-gray-100" onclick="sortTable(1)">Tanggal</th>
