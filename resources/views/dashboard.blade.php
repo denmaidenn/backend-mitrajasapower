@@ -300,6 +300,42 @@
                 attribution: '&copy; OpenStreetMap contributors'
             }).addTo(map);
 
+            // Define custom icons for different statuses
+            const customIcons = {
+                'Pending': L.icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                }),
+                'Approved': L.icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                }),
+                'Complete': L.icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                }),
+                'Rejected': L.icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                })
+            };
+
             let markers = []; // Store markers for later manipulation
 
             try {
@@ -329,7 +365,10 @@
                         
                         // Add markers for all filtered data
                         filteredData.forEach(k => {
-                            const marker = L.marker([parseFloat(k.latitude), parseFloat(k.longitude)]).addTo(map);
+                            const marker = L.marker(
+                                [parseFloat(k.latitude), parseFloat(k.longitude)],
+                                { icon: customIcons[k.status] || customIcons['Pending'] }
+                            ).addTo(map);
                             marker.bindPopup(`
                                 <b>${k.ke}</b><br>
                                 Nomor Resi: ${k.nomor_resi}<br>
